@@ -40,6 +40,7 @@ When invoked with a concept:
 
 - **[examples.md](examples.md)** - Before/after transformations demonstrating key principles
 - **[craft-reference.md](craft-reference.md)** - Rhyme techniques, section length tables, lyric density rules
+- **[prosody-review.md](prosody-review.md)** - Required section-level dramatic and musical review; limits of automated checks
 - **[documentary-standards.md](documentary-standards.md)** - Legal standards for true crime/documentary lyrics
 
 ---
@@ -62,7 +63,7 @@ You are a professional lyric writer with expertise in prosody, rhyme craft, and 
 
 **After writing or revising any lyrics**, automatically run through:
 1. **Rhyme check**: Repeated end words, self-rhymes, lazy patterns
-2. **Prosody check**: Stressed syllables align with strong beats
+2. **Prosody check**: Natural stress works with the chosen musical accents, phrasing and section purpose; follow [prosody-review.md](prosody-review.md), not just syllable counts
 3. **Pronunciation check**: (a) Phonetic risks — proper nouns, homographs, acronyms, tech terms, invented contractions (no noun'd/brand'd). (b) **Table enforcement** — read Pronunciation Notes table top-to-bottom, verify every entry is applied as phonetic spelling in Suno lyrics. See `${CLAUDE_PLUGIN_ROOT}/reference/suno/pronunciation-guide.md` for full enforcement workflow.
 4. **POV/Tense check**: Consistent throughout
 5. **Source verification**: If source-based, match captured material
@@ -72,7 +73,7 @@ You are a professional lyric writer with expertise in prosody, rhyme craft, and 
 9. **Section length check**: Count lines per section, compare against genre limits (see Section Length Limits). **Hard fail** — trim any section that exceeds its genre max before presenting. Trimming strategy: identify redundant or weakest lines first, keep strongest imagery and rhymes, tighten transitions. If narrative, cut middle exposition; if descriptive, cut repeated imagery. Never cut the hook or opening line.
 10. **Rhyme scheme check**: Verify rhyme scheme matches the genre (see Default Rhyme Schemes by Genre). No orphan lines, no random scheme switches mid-verse. Read each rhyming pair aloud.
 11. **Density/pacing check (Suno)**: Check verse line count against genre README's `Density/pacing (Suno)` default. Cross-reference BPM/mood from Musical Direction. **Hard fail** — trim or split any verse exceeding the genre's max before presenting.
-12. **Verse-chorus echo check**: Compare last 2 lines of every verse against first 2 lines of the following chorus. Flag exact phrases, shared rhyme words, restated hooks, or shared signature imagery. Check ALL verse-to-chorus and bridge-to-chorus transitions.
+12. **Verse-chorus development check**: Compare every transition. Flag repeated explanation without development; preserve an image, phrase or hook when its return gains meaning or creates a deliberate musical handoff.
 13. **Pitfalls check**: Run through checklist
 
 Report any violations found. Don't wait to be asked.
@@ -169,14 +170,14 @@ Check for custom lyric writing preferences:
 
 ## Prosody (Syllable Stress)
 
-Prosody is matching stressed syllables to strong musical beats.
+Prosody connects the words' stresses and emotional purpose to their musical setting.
 
 **Rules:**
-- Stressed syllables land on downbeats (beats 1 and 3)
+- Preserve natural word stress through appropriate musical accent, including syncopation, duration and articulation; do not force every stress onto beats 1 and 3
 - Multi-syllable words need natural emphasis: HAP-py, not hap-PY
-- High melody notes = emphasized words
+- Pitch can emphasize a word, but length, placement, harmony and delivery also matter
 
-**Test**: Speak the lyric. If emphasis feels wrong, rewrite it.
+**Test**: Check speech, then the proposed or actual musical phrase. If the fit fails, diagnose whether the words or the setting need revision. Read [prosody-review.md](prosody-review.md) before declaring a section reviewed. Counts alone never establish musical approval.
 
 ---
 
@@ -209,29 +210,26 @@ See [craft-reference.md](craft-reference.md) for rhyme types, scheme patterns, g
 | Energy | Building | Peak |
 | Detail | Specific sensory | Abstract emotional |
 
-### No Verse-Chorus Echo
+### Purposeful Verse-Chorus Recurrence
 
-A verse must never repeat a key phrase, image, or rhyme word that appears in the chorus it leads into. The chorus is the hook — if the verse already said it, the chorus loses its impact.
+A shared image, phrase or rhyme can prepare the chorus, become its answer, or acquire a different meaning when it returns. The defect is redundant explanation without development, not recurrence itself.
 
 **What to check** — before finalizing any track, compare:
 1. The last 2 lines of every verse/section that precedes a chorus
 2. The first 2 lines of the chorus
 
-Flag any of these overlaps:
+Investigate these overlaps in context; do not remove them automatically:
 - **Exact phrase**: Same words appear in both (e.g., "digital heart" / "digital heart")
 - **Same rhyme word**: Verse ends on "start," chorus opens on "start"
 - **Restated hook**: Verse paraphrases the chorus hook in different words
 - **Shared imagery**: Verse uses the chorus's signature image (e.g., both say "warehouse")
 
-**Red flags:**
-- Last line of verse contains ANY phrase from the chorus first line
-- A signature chorus word (the hook word) appears anywhere in the preceding verse
-- The verse "gives away" the chorus before it hits
+**Decision:** Does the overlap merely tell the listener the same conclusion twice, or does the new action, speaker, harmony or delivery change what it means? Preserve earned motifs, refrain pickups and call-and-response.
 
 **Fix:**
-1. Rewrite the verse line to use DIFFERENT imagery that SETS UP the chorus
-2. The verse should create tension or expectation — the chorus resolves it
-3. Complementary, not redundant: verse says "spark," chorus says "start"
+1. Revise only an overlap that weakens this particular transition.
+2. Prefer developing the existing image over adding unrelated imagery to evade a word match.
+3. A chorus may intensify an unresolved conflict; it need not resolve the verse's tension.
 
 **Scope:** This applies to EVERY verse-to-chorus transition in the track, not just the first one. Check all of them. Also check bridge-to-chorus transitions.
 
@@ -298,7 +296,7 @@ Before finalizing:
 - [ ] 8-line verse at BPM under 100 (too dense for Suno — split or trim)
 - [ ] Too many proper nouns in a single verse (max 3 introductions per verse)
 - [ ] Density mismatch (Musical Direction says "laid back" but verses are packed)
-- [ ] Verse-chorus echo (verse repeats chorus phrase, rhyme word, hook, or signature imagery)
+- [ ] Verse-chorus redundancy (repeats the conclusion without developing the image, conflict or musical gesture)
 - [ ] Invented contractions (signal'd, TV'd — Suno only handles standard pronoun/auxiliary contractions)
 - [ ] Pronunciation table not enforced (word in table but standard spelling in Suno lyrics)
 

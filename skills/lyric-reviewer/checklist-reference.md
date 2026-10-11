@@ -31,12 +31,15 @@ Detailed criteria for each lyric review checkpoint.
 **What to scan:**
 - Multi-syllable words
 - Natural stress alignment with beat positions
+- Section function, musical accent and phrase contrast; follow [prosody-review.md](../lyric-writer/prosody-review.md) for every sung section
 - Inverted word order forced for rhyme
 
 **How to check:**
 - Speak the lyric aloud
 - Would you naturally emphasize those syllables?
-- Does "to-NIGHT" or "a-BOUT" sound wrong?
+- Preserve ordinary to-NIGHT and a-BOUT rather than accidentally emphasizing TO-night or A-bout
+- Check the musical setting as well as speech: pickups, syncopation, held notes, releases and breath space
+- Report a proposed setting as proposed; only an identified performed take supports a listening verdict
 
 **Severity:**
 - **Warning**: Clear stress misalignment
@@ -335,18 +338,18 @@ Detailed criteria for each lyric review checkpoint.
 
 **What to scan:**
 - Compare last 2 lines of every verse against first 2 lines of the following chorus
-- Flag exact phrases, shared rhyme words, restated hooks, or shared signature imagery
+- Identify whether a shared phrase, image or rhyme gains meaning on return or merely repeats a conclusion
 - Check ALL verse-to-chorus and bridge-to-chorus transitions
 
 **Severity:**
-- **Warning**: Shared phrases or rhyme words bleeding across section boundaries
+- **Warning**: Redundant explanation without dramatic or musical development
 
 **Output format:**
 ```
 ### Verse-Chorus Echo Check
-- [⚠] V1→Chorus: "burning down" appears in V1:L4 and Chorus:L1
-- [⚠] V2→Chorus: V2:L4 rhyme word "night" echoes Chorus:L2 "light"
-- [✓] Bridge→Chorus: No echo
+- [⚠] V1→Chorus: Both passages explain the same conclusion without new action or musical contrast
+- [✓] V2→Chorus: The same invitation returns after a refusal; preserve the changed meaning
+- [✓] Bridge→Chorus: A deliberate title pickup connects the sections
 ```
 
 ---

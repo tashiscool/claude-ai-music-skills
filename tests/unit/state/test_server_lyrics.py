@@ -1594,9 +1594,7 @@ class TestCountSyllablesWord:
     def test_apostrophe_words(self):
         assert _lyrics_analysis_mod._count_syllables_word("don't") == 1
         assert _lyrics_analysis_mod._count_syllables_word("I'm") == 1
-        # "couldn't" — vowel-cluster heuristic counts 1 (the 'ou' group);
-        # the contraction drops the vowel from "not", a known limitation
-        assert _lyrics_analysis_mod._count_syllables_word("couldn't") >= 1
+        assert _lyrics_analysis_mod._count_syllables_word("couldn't") == 2
 
     def test_empty_and_edge(self):
         assert _lyrics_analysis_mod._count_syllables_word("") == 0
@@ -1615,6 +1613,41 @@ class TestCountSyllablesWord:
 
 class TestCountSyllables:
     """Tests for the count_syllables MCP tool."""
+
+    @pytest.mark.parametrize(
+        ("line", "expected"),
+        [
+            ("They talked.", 2),
+            ("We walked.", 2),
+            ("She asked.", 2),
+            ("They waited.", 3),
+            ("We added.", 3),
+            ("A naked flame.", 4),
+            ("The sacred text.", 4),
+            ("One hundred.", 3),
+            ("A kindred soul.", 4),
+            ("Infrared.", 3),
+            ("They played.", 2),
+            ("I didn't.", 3),
+            ("We couldn't.", 3),
+            ("It doesn't.", 3),
+            ("I don't.", 2),
+            ("We aren't.", 2),
+            ("They weren't.", 2),
+            ("I DIDN'T.", 3),
+            ("They aren\u2019t.", 2),
+        ],
+    )
+    def test_common_inflections_and_contractions(self, line, expected):
+        result = json.loads(_run(server.count_syllables(line)))
+        assert result["sections"][0]["lines"][0]["syllable_count"] == expected
+
+    @pytest.mark.parametrize("text", ["", "[Verse]\nThey sing\nWe sing", "[Verse]\nGo\nA long line goes on and on"])
+    def test_count_statistic_never_claims_prosody_assessment(self, text):
+        result = json.loads(_run(server.count_syllables(text)))
+        assert result.get("assessment", {}).get("prosody") == "not_assessed"
+        assert result["assessment"]["method"] == "orthographic_heuristic"
+        assert "whole-input" in result["assessment"]["consistency_scope"]
 
     def test_empty_input(self):
         result = json.loads(_run(server.count_syllables("")))

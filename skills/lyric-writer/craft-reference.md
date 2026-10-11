@@ -98,7 +98,7 @@ Before finalizing any lyrics, verify:
 | Hip-Hop/Rap | 10-13+ | ±3 |
 | Metal/Electronic | Varies | Flexible |
 
-**Critical**: Verse 1 line lengths must match Verse 2 line lengths.
+**Check corresponding phrases**: When Verse 2 reuses Verse 1's melody, verify that its words fit that melody naturally. Counts may differ if phrasing accommodates them. A deliberately different melody or phrase length is not a defect; document and test the change rather than equalizing counts automatically.
 
 ---
 
@@ -419,9 +419,8 @@ Read-aloud test, smooth transitions, singability at target BPM.
 | Unsingable vowel sequences | "She oughta allow our hour" | "She gave us the hour" | Stacked diphthongs muddy at tempo |
 | Transition bumps | V1 ends reflective → V2 opens aggressive (no bridge) | Add pre-chorus or transitional line | Jarring shifts break the listener's flow |
 | Missing breath points | 12-syllable line with no natural pause | Split at caesura or add a comma break | Singers need air; dense lines get rushed |
-| Stress misalignment | "into the DARK-ness" on a weak beat | "the DARKness CALLS" on strong beats | Stressed syllables must land on downbeats |
+| Stress misalignment | An unstressed ending overwhelms the word's natural accent | Change the setting or wording to preserve the intended stress | Accent can come from timing, duration, pitch or articulation, including syncopation |
 | Choppy rhythm | "Stop. Go. Wait. No. Run." | "Stop and go — wait, no — run" | Staccato lines need connective tissue to sing |
-| Syllable mismatch | V1 line: 8 syllables, V2 line: 13 syllables | Match within ±2 syllables | Parallel lines should fit the same melodic phrase |
+| Syllable mismatch | V1 line: 8 syllables, V2 line: 13 syllables | Test the reused melody; adjust wording or explicitly change the setting if needed | Equal counts alone neither establish nor repair musical fit |
 
 ---
-

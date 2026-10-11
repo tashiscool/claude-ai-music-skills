@@ -53,6 +53,7 @@ Based on the argument provided:
 ## Supporting Files
 
 - **[checklist-reference.md](checklist-reference.md)** - Detailed 14-point checklist criteria
+- **[prosody-review.md](../lyric-writer/prosody-review.md)** - Required musical evidence and section-level review
 
 ---
 
@@ -80,6 +81,8 @@ lyric-writer (WRITES + SUNO PROMPT) → pronunciation-specialist (RESOLVES) → 
 
 ### 2. Prosody Check
 - Multi-syllable word stress, inverted word order
+- Review every sung section using [prosody-review.md](../lyric-writer/prosody-review.md): dramatic purpose, spoken accents, phrase setting and actual performance evidence are separate checks
+- A syllable statistic, meter label, populated lyrics box or style cue is not proof of musical fit; mark missing composition/performance evidence explicitly
 - **Warning**: Clear stress misalignment
 
 ### 3. Pronunciation Check
@@ -130,9 +133,9 @@ lyric-writer (WRITES + SUNO PROMPT) → pronunciation-specialist (RESOLVES) → 
 
 ### 13. Verse-Chorus Echo Check
 - Compare last 2 lines of every verse against first 2 lines of the following chorus
-- Flag exact phrases, shared rhyme words, restated hooks, or shared signature imagery
+- Assess whether recurrence develops meaning or merely repeats an explanation; do not flag shared imagery, rhyme or a hook pickup as a defect by itself
 - Check ALL verse-to-chorus and bridge-to-chorus transitions
-- **Warning**: Shared phrases or rhyme words bleeding across section boundaries
+- **Warning**: Redundant explanation or an unearned return that weakens the transition
 
 ### 14. Artist Name Check
 - Call `scan_artist_names(text)` — scans lyrics AND style prompt against the artist blocklist

@@ -48,7 +48,7 @@ Glass still scattered in the hall
 
 ## Prosody (Syllable Stress)
 
-Stressed syllables must land on strong beats (1 and 3 in 4/4 time).
+Preserve natural word stress through the musical setting. Strong beats can help, but duration, pitch, articulation and syncopation also create accent; do not force every stress onto beats 1 and 3.
 
 ### Example 1: Multi-syllable Word
 

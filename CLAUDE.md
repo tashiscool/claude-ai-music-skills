@@ -134,6 +134,8 @@ At the beginning of a fresh session:
 
 **After writing or revising lyrics**, run the 13-point quality checklist from `/skills/lyric-writer/SKILL.md`. Report violations without being asked.
 
+**Musical review is not a counter result.** Follow `/skills/lyric-writer/prosody-review.md`: review dramatic purpose and every section's musical setting, retain earned motifs, and separate proposed scansion/composition from an identified performed take. Automated gate READY means text/metadata checks passed, not musical approval. A Pending source gate does not prevent provisional craft review or become cleared by it.
+
 **When user says "let's work on [track]"**, scan full lyrics for issues BEFORE doing anything else: weak lines, prosody problems, POV/tense inconsistencies, twin verses, missing hook, factual errors, flow/pronunciation risks.
 
 ---

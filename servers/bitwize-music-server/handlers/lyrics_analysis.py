@@ -283,20 +283,44 @@ async def extract_distinctive_phrases(
 # Lyrics Analysis Helpers
 # ---------------------------------------------------------------------------
 
+# Ordinary spoken readings; dialect, grammatical use and singing may differ.
+_NEGATIVE_CONTRACTIONS = {
+    "ain't": 1, "aren't": 1, "can't": 1, "don't": 1, "shan't": 1,
+    "weren't": 1, "won't": 1,
+    "couldn't": 2, "didn't": 2, "doesn't": 2, "hadn't": 2,
+    "hasn't": 2, "haven't": 2, "isn't": 2, "mustn't": 2,
+    "needn't": 2, "oughtn't": 2, "shouldn't": 2, "wasn't": 2,
+    "wouldn't": 2,
+}
+
+# Do not apply the regular past-tense reduction to lexical/adjectival endings.
+# Ambiguous words retain the previous estimate rather than guessing their POS.
+_LEXICAL_ED_ENDINGS = frozenset({
+    "aged", "beloved", "blessed", "crooked", "dogged", "hatred", "hundred",
+    "infrared", "jagged", "kindred", "learned",
+    "naked", "ragged", "rugged", "sacred", "wicked", "wretched",
+})
+
+
 def _count_syllables_word(word: str) -> int:
     """Count syllables in a single word using vowel cluster heuristic.
 
     Rules:
-    1. Count vowel groups (aeiouy; consecutive vowels = 1 group)
+    1. Resolve common negative contractions, then count vowel groups
     2. Subtract trailing silent 'e' if count > 1
     3. Handle consonant-'le' endings (bottle, apple — add 1)
-    4. Floor at 1
+    4. Reduce ordinary nonsyllabic '-ed' endings, with lexical exceptions
+    5. Floor at 1; this is an estimate, not pronunciation or stress analysis
     """
     if not word:
         return 0
-    word = word.lower().strip("'")
+
+    word = word.lower().replace("\u2019", "'").strip("'")
     if not word:
         return 0
+
+    if word in _NEGATIVE_CONTRACTIONS:
+        return _NEGATIVE_CONTRACTIONS[word]
 
     vowels = set("aeiouy")
     count = 0
@@ -317,6 +341,11 @@ def _count_syllables_word(word: str) -> int:
     # Consonant + 'le' endings (bottle, apple, little)
     if len(word) >= 3 and word.endswith("le") and word[-3] not in vowels:
         count += 1
+
+    if (len(word) > 3 and word.endswith("ed")
+            and word[-3] not in vowels | {"t", "d"}
+            and word not in _LEXICAL_ED_ENDINGS):
+        count -= 1
 
     return max(count, 1)
 
@@ -378,10 +407,12 @@ def _get_rhyme_tail(word: str) -> str:
 
 
 async def count_syllables(text: str) -> str:
-    """Get syllable counts per line with section tracking and consistency analysis.
+    """Estimate syllable counts per line, not musical meter or prosody.
 
     Parses lyrics by section, counts syllables per line, and calculates
-    consistency (stdev > 3 = "UNEVEN").
+    whole-input count dispersion (stdev > 3 = "UNEVEN"). CONSISTENT does not
+    mean singable: no stress, tempo, melody, breath or style is assessed.
+    Dialect, contractions and inflections can require manual correction.
 
     Args:
         text: Lyrics text to analyze (with [Section] tags)
@@ -392,8 +423,15 @@ async def count_syllables(text: str) -> str:
         summary: {total_syllables, total_lines, avg_syllables_per_line,
         min_line, max_line, consistency}}
     """
+    assessment = {
+        "method": "orthographic_heuristic",
+        "prosody": "not_assessed",
+        "consistency_scope": "whole-input syllable-count dispersion, not musical fit",
+        "limitations": "Estimated spoken counts only. Check pronunciation, stress, phrase timing, melody and performance separately.",
+    }
     if not text or not text.strip():
         return _safe_json({
+            "assessment": assessment,
             "sections": [],
             "summary": {
                 "total_syllables": 0,
@@ -434,7 +472,7 @@ async def count_syllables(text: str) -> str:
             continue
 
         # Count syllables for this line
-        words = _WORD_TOKEN_RE.findall(stripped)
+        words = _WORD_TOKEN_RE.findall(stripped.replace("\u2019", "'"))
         syllable_count = sum(_count_syllables_word(w) for w in words)
         all_syllable_counts.append(syllable_count)
 
@@ -469,6 +507,7 @@ async def count_syllables(text: str) -> str:
         consistency = "N/A"
 
     return _safe_json({
+        "assessment": assessment,
         "sections": sections,
         "summary": {
             "total_syllables": total_syllables,

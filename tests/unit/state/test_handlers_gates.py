@@ -905,6 +905,21 @@ class TestRunPreGenerationGates:
         assert result["tracks"][0]["verdict"] == "READY"
         assert result["album_verdict"] == "READY"
 
+    @pytest.mark.parametrize("track_slug", ["01-first-track", "02-second-track", ""])
+    def test_automated_verdict_does_not_certify_musical_review(self, track_slug):
+        with patch("pathlib.Path.read_text", return_value=TRACK_FILE_COMPLETE), \
+             patch.object(_text_analysis_mod, "_load_artist_blocklist", return_value=[]):
+            result = json.loads(_run(
+                _gates_mod.run_pre_generation_gates("test-album", track_slug)
+            ))
+        assert result.get("assessment", {}).get("musical_quality") == "not_assessed"
+        assert result["assessment"]["scope"] == "automated_text_and_metadata_checks"
+        for track in result["tracks"]:
+            lyrics = next(g for g in track["gates"] if g["gate"] == "Lyrics Reviewed")
+            assert "not assessed" in lyrics["detail"]
+            style = next(g for g in track["gates"] if g["gate"] == "Style Prompt Complete")
+            assert "not assessed" in style["detail"]
+
     def test_single_track_not_ready(self):
         """A track with pending sources returns NOT READY."""
         with patch("pathlib.Path.read_text", return_value=TRACK_FILE_COMPLETE), \

@@ -6,6 +6,13 @@ This project uses [Conventional Commits](https://conventionalcommits.org/) and [
 
 ## [Unreleased]
 
+### Fixed
+- **Separate automated text checks from musical review.** Syllable output now carries explicit heuristic/prosody limits; pre-generation output states that musical quality is not assessed. Existing tool parameters, gate names and verdict values remain compatible, but populated lyrics/style boxes no longer describe their success as actual review. The pre-generation skill requires a separate, current musical review before recommending an audition.
+- **Correct common spoken syllable estimates for negative contractions and nonsyllabic -ed endings**, including capitalized contractions and curly apostrophes. Preserve lexical/adjectival exceptions; counts remain approximate, not a pronunciation lexicon.
+
+### Changed
+- **Review dramatic purpose and musical settings before rewriting for regularity.** Shared writer/reviewer guidance requires section-level stress and phrasing evidence, checks changed phrase allocations, distinguishes proposed composition from heard performance, and preserves motifs whose returns gain meaning. Removed blanket shared-imagery and beats-1-and-3 rules. Source-pending drafts may receive provisional refinement without clearing source approval or authorizing generation.
+
 ## [0.102.0] - 2026-09-16
 
 ### Added

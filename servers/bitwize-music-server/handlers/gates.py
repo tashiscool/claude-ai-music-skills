@@ -112,7 +112,7 @@ def _check_pre_gen_gates_for_track(
         gates.append({"gate": "Sources Verified", "status": "PASS",
                       "detail": f"Status: {sources}"})
 
-    # Gate 2: Lyrics Reviewed
+    # Legacy gate name retained for clients; this checks presence, not review.
     lyrics_content = None
     if file_text:
         lyrics_section = _extract_markdown_section(file_text, "Lyrics Box")
@@ -129,7 +129,7 @@ def _check_pre_gen_gates_for_track(
         blocking += 1
     else:
         gates.append({"gate": "Lyrics Reviewed", "status": "PASS",
-                      "detail": "Lyrics populated"})
+                      "detail": "Lyric text present; musical review not assessed"})
 
     # Gate 3: Pronunciation Resolved
     if file_text:
@@ -184,7 +184,7 @@ def _check_pre_gen_gates_for_track(
         blocking += 1
     else:
         gates.append({"gate": "Style Prompt Complete", "status": "PASS",
-                      "detail": f"Style prompt: {len(style_content)} chars"})
+                      "detail": f"Style text present: {len(style_content)} chars; musical fit not assessed"})
 
     # Gate 5b: Style Box descriptor budget (advisory). The old "4-7 sweet spot"
     # cutoff traced to a single commercial guide, not Suno-official guidance, and
@@ -345,10 +345,10 @@ async def run_pre_generation_gates(
 
     Gates:
         1. Sources Verified — sources_verified is not "Pending"
-        2. Lyrics Reviewed — Lyrics Box populated, no [TODO]/[PLACEHOLDER]
+        2. Lyrics Reviewed (legacy name) — text populated, no [TODO]/[PLACEHOLDER]
         3. Pronunciation Resolved — All Pronunciation Notes entries applied
         4. Explicit Flag Set — Explicit field is "Yes" or "No"
-        5. Style Prompt Complete — Non-empty Style Box with content
+        5. Style Prompt Complete — Non-empty Style Box, not musical fit
         6. Artist Names Cleared — No real artist names in Style Box
         7. Homograph Check — No unresolved homographs in lyrics
         8. Lyric Length — Lyrics under 800-word Suno limit
@@ -361,7 +361,10 @@ async def run_pre_generation_gates(
         track_slug: Specific track slug/number (empty = all tracks)
 
     Returns:
-        JSON with per-track gate results and verdicts
+        JSON with per-track gate results and verdicts. READY means automated
+        checks pass, not that prosody, composition or listening was assessed.
+        The assessment field states these limits; a separate musical review
+        is required by the pre-generation-check skill.
     """
     normalized_album, album, error = _find_album_or_error(album_slug)
     if error:
@@ -433,6 +436,11 @@ async def run_pre_generation_gates(
     return _safe_json({
         "found": True,
         "album_slug": normalized_album,
+        "assessment": {
+            "scope": "automated_text_and_metadata_checks",
+            "musical_quality": "not_assessed",
+            "required_review": "Review section purpose, stress, musical setting and available performance evidence separately. READY is not musical approval or spending authorization.",
+        },
         "album_verdict": album_verdict,
         "total_tracks": len(track_results),
         "total_blocking": total_blocking,

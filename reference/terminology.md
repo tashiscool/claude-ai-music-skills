@@ -109,7 +109,7 @@ Comprehensive reference for terms used in the bitwize-music plugin. Alphabetized
 | **Lazy Rhyme** | Predictable, overused, or weak rhyme pattern. Includes self-rhymes and same-word repeats. | Rhyming "time" with "time" |
 | **Phonetic Spelling** | Writing words as they should be pronounced to prevent Suno mispronunciation. | "Lin-ucks" for Linux, "Rah-mohs" for Ramos |
 | **POV** | Point of view. Should be consistent throughout a track (first person, third person, etc.). | Don't switch from "I" to "you" mid-verse |
-| **Prosody** | Alignment of stressed syllables with strong musical beats. Critical for natural-sounding vocals. | Stressed syllables on beats 1 and 3 |
+| **Prosody** | Fit between language, musical setting and emotional purpose. Natural stress interacts with timing, duration, pitch and delivery. | A meaningful word sustained across a beat; an image returning with new force |
 | **Self-Rhyme** | Rhyming a word with itself or using the same end word twice consecutively. A common pitfall. | "mind/mind", "time/time" |
 | **Twin Verses** | When Verse 2 merely rewords Verse 1 without developing the story/theme. A quality issue. | V2 should advance the narrative, not repeat V1 |
 
