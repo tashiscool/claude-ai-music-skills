@@ -53,7 +53,7 @@ These skills directly impact music quality or have high error costs.
 **Why Opus**: Lyrics ARE the music for vocal tracks. This skill requires:
 - Nuanced storytelling that connects emotionally
 - Sophisticated rhyme schemes without lazy patterns
-- Prosody mastery (stressed syllables on strong beats)
+- Prosody judgment (natural stress, musical accent, phrasing and emotional purpose)
 - Voice consistency across an album
 - Balancing artistic expression with singability
 

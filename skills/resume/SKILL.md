@@ -42,9 +42,15 @@ When this skill is invoked with an album name:
 1. Call `get_album_progress(album_slug)` — returns track counts by status, completion percentage, and detected workflow phase
 2. Call `list_tracks(album_slug)` — returns per-track details (status, has_suno_link, sources_verified)
 
-### Step 3: Update Session Context
+### Step 3: Inspect Current Inputs
 
-Call `update_session(album=album_slug, phase=detected_phase)` to set the active album and phase.
+The native `detected_phase` is a status-only estimate, not a readiness verdict.
+Before reporting or persisting it, inspect
+`get_album_full(album_slug, include_sections="lyrics,style")` and the relevant
+track files for completeness, instrumental-field agreement and review evidence.
+Do not send a completed vocal draft or instrumental structure back to writing
+solely because its status is In Progress. If inputs cannot be read, report that
+uncertainty and leave the saved phase unchanged.
 
 ### Step 4: Determine Current Phase
 
@@ -64,6 +70,11 @@ Based on album and track statuses, identify the workflow phase:
 | Released | All "Final" | Released - Album is live |
 
 **Note**: Non-documentary albums skip `Research Complete` and `Sources Verified` — they go directly from `Concept` → `In Progress`.
+
+Resolve the table against the inspected inputs and Step 6's decision tree, then
+call `update_session(album=album_slug, phase=resolved_phase)`. Report that same
+resolved phase. Ready to Generate means ready for the checkpoint, not permission
+to execute; it does not replace musical review or source verification.
 
 ### Step 5: Report to User
 
@@ -100,7 +111,19 @@ Pick ONE clear recommendation from the decision tree below. Don't list 5 options
 
 **Decision Tree** (evaluate top-to-bottom, first match wins):
 
-**Instrumental detection**: Check each track's frontmatter for `instrumental: true` or Track Details table for `**Instrumental** | Yes`. Instrumental tracks skip the lyrics workflow entirely and go straight to `/bitwize-music:suno-engineer`.
+**Instrumental detection**: Check each track's instrumental fields and report disagreements. Instrumentals skip vocal writing/pronunciation, not review: prepare style/structure with `/bitwize-music:suno-engineer`, then use the lyric-reviewer's **Instrumental Arrangement Review**.
+
+Inspect actual inputs with `get_album_full(album_slug, include_sections="lyrics,style")`
+where needed; a status does not prove that lyrics are absent or complete. Every
+generation/retry recommendation remains subject to current review, source checks
+and execution authorization under the engineer's Execution Boundary. Pending
+sources do not prevent an explicitly requested provisional craft pass.
+
+For every Generated-track branch below, first apply the shared
+[After Generation review](../lyric-writer/prosody-review.md#after-generation)
+through lyric-reviewer. Carry its section ledger and correction checks forward.
+Record actual human keeper decisions without claiming any unperformed technical
+review; missing access to audio is a disclosed limitation, not a revoked approval.
 
 ```
 Album Status = "Concept"
@@ -118,16 +141,18 @@ Album has tracks with "Not Started"
     YES → "Create Style Box for [track]. Use /bitwize-music:suno-engineer directly (instrumental track)"
     NO  → "Write lyrics for [first not-started track]. Use /bitwize-music:lyric-writer"
 
-Album has tracks with "In Progress" (lyrics partially written)
-  → "Finish lyrics for [first in-progress track]. Use /bitwize-music:lyric-writer"
+Album has "In Progress" tracks with incomplete actual inputs
+  → Vocal: finish lyrics with /bitwize-music:lyric-writer
+  → Instrumental: finish style/structure with /bitwize-music:suno-engineer in prompt-only mode
 
 Album has tracks with "Sources Pending"
   → "Verify sources for [track]. Run /bitwize-music:verify-sources [album]"
 
 All tracks have lyrics (or Style Box for instrumentals), none generated
-  → Mixed album (vocal + instrumental)?
-    YES → "All tracks ready! Run /bitwize-music:pronunciation-specialist on vocal tracks, then /bitwize-music:lyric-reviewer, then /bitwize-music:pre-generation-check to validate all gates (instrumental tracks auto-skip lyrics gates)."
-    NO  → "All lyrics complete! Style prompts should be ready. Run /bitwize-music:pronunciation-specialist to check for pronunciation risks, then /bitwize-music:lyric-reviewer for final QC, then /bitwize-music:pre-generation-check to validate all gates before generating on Suno."
+  → Vocal-only: pronunciation-specialist, then lyric-reviewer
+  → Instrumental-only: lyric-reviewer's Instrumental Arrangement Review
+  → Mixed: pronunciation on vocal tracks, then the appropriate reviewer route for every track
+  → All cases: /bitwize-music:pre-generation-check for current inputs, source clearance and execution authorization
 
 Some tracks generated, some not
   → Any Generated tracks without ✓ in Generation Log Rating?
@@ -136,7 +161,7 @@ Some tracks generated, some not
            - Not happy? Log the reason, then:
              Style issue → /bitwize-music:suno-engineer to revise Style Box
              Lyrics issue → /bitwize-music:lyric-writer to fix, then regenerate
-             Bad luck → Regenerate on Suno with same settings (it's non-deterministic)"
+             Another-take proposal → Check current review and remaining authorization before any retry"
     NO  → "Generate [first un-generated track] on Suno. Use /bitwize-music:suno-engineer"
 
 All tracks generated, none Final
@@ -237,7 +262,7 @@ Ready to continue? Tell me which track you'd like to work on.
 
 📊 Progress:
    - Tracks: 8 / 8 total (all lyrics complete)
-   - Final: 8
+   - In Progress: 8
 
 📍 Current Phase: Ready to Generate
 
@@ -248,7 +273,7 @@ Ready to continue? Tell me which track you'd like to work on.
 
 ⏭️ Next Steps:
    1. Run Ready to Generate checkpoint (I'll verify everything)
-   2. Start generating on Suno
+   2. Obtain bounded execution authorization before generating on Suno
    3. Log generation attempts
 
 Shall I run the Ready to Generate checkpoint now?

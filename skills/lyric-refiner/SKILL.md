@@ -42,8 +42,8 @@ In **album mode**, instrumental tracks are **silently skipped with a one-line no
 2. Use `list_tracks(album_slug)` to get all tracks
 3. **Triage every track** into one of three buckets — the refiner only operates on the third:
    - **Instrumental** — frontmatter `instrumental: true` or Track Details `**Instrumental** | Yes` → **skip**, emit `Skipping {track} — instrumental`
-   - **Not ready** — status `Not Started` / `Sources Pending`, OR no Lyrics Box content → **skip**, emit `Skipping {track} — no lyrics yet ({status})`
-   - **Refineable** — vocal track with lyrics written → include in the refinement pass set
+   - **No draft** — no actual Lyrics Box content (empty or only placeholders) → **skip**, emit `Skipping {track} — no lyric draft`
+   - **Refineable** — vocal track with actual lyrics written → include in the refinement pass set. If sources are Pending, label the craft review provisional; preserve factual uncertainties and do not promote source status or authorize generation.
 4. For **album mode**: read ALL refineable track lyrics before starting any refinement (full context needed for cohesion/unity passes). Instrumental and not-ready tracks do not need to be read.
 5. For **single-track mode**: still read all sibling **refineable** tracks for cross-track context.
 
@@ -51,11 +51,11 @@ In **album mode**, instrumental tracks are **silently skipped with a one-line no
 
 These conditions end the run cleanly *before* any pass — they are informational, not errors. Report and exit; do not treat as a guard-clause failure.
 
-- **Album mode, zero refineable tracks**: Report "Nothing to refine — {N} instrumental skipped, {M} vocal tracks still Not Started. Run `/lyric-writer` to write lyrics first." Then exit cleanly.
+- **Album mode, zero refineable tracks**: Report "Nothing to refine — {N} instrumental skipped, {M} vocal tracks have no lyric draft. Run `/lyric-writer` to write lyrics first." Then exit cleanly.
 - **Single-track mode, instrumental track**: See Instrumental Guard above.
-- **Single-track mode, Not Started / no lyrics**: Report "Track '{title}' has no lyrics yet — run `/lyric-writer` first." Then exit cleanly.
+- **Single-track mode, no lyric draft**: Report "Track '{title}' has no lyrics yet — run `/lyric-writer` first." Then exit cleanly.
 
-The refiner **must not** fail the entire run just because *some* vocal tracks are `Not Started`. It processes whatever is refineable and reports what was skipped. The old blanket rule "Track status `Not Started` or `Sources Pending` → error" is **removed** — those tracks are now triage-skipped per step 3 above.
+The refiner **must not** infer that lyrics are absent from a workflow status. Inspect the actual draft. Source approval is a separate generation requirement, not evidence that a populated draft cannot be reviewed. Do not clear that gate by refining the words.
 
 ## Workflow
 
@@ -64,6 +64,7 @@ Run all passes autonomously. No human checkpoints between passes.
 1. **Load override** — Call `load_override("lyric-writing-guide.md")` for user style preferences. **Why:** the user's vocabulary preferences and style rules outrank base refinement heuristics — they need to be in context before any pass runs, otherwise tighten/strengthen edits may push lyrics in directions the user has explicitly opted out of.
 2. **Load album context** — Read album README (concept, motifs, themes, narrative arc)
 3. **Read all track lyrics** — Build full picture before touching anything
+   - Apply [prosody-review.md](../lyric-writer/prosody-review.md). Preserve dramatic development and purposeful recurrence; compare existing musical settings before rewriting for equal counts. Record which sections have only proposed timing and which have been heard in an identified take.
 4. **Execute passes** — Run each pass on every in-scope track sequentially
 5. **Report results** — Present consolidated refinement report
 
@@ -90,7 +91,7 @@ You are NOT the lyric writer. You don't add new content, new sections, or new na
 - **Album-aware** — Every edit considers its impact on cross-track cohesion and album unity.
 - **Autonomous execution** — Run all passes without pausing. Report everything at the end.
 - **Diminishing returns awareness** — If a pass produces zero changes, stop early. Don't force edits.
-- **Respect hard limits** — Section length, word count, genre constraints, and pronunciation tables remain enforced after every edit.
+- **Respect actual constraints** — Keep configured caps and pronunciation decisions; assess genre/count estimates in the chosen setting without automatic trimming or padding.
 
 ---
 
@@ -157,8 +158,8 @@ Every pass must follow these rules:
 
 1. **Run the 13-point quality check** (from lyric-writer) on every track after modifications. If new violations are introduced, fix them before moving to the next pass.
 2. **Preserve pronunciation table enforcement** — Never revert a phonetic spelling back to standard spelling. If editing a line with phonetic words, keep them phonetic.
-3. **Respect section length limits** — Edits must not push any section over its genre maximum.
-4. **Respect word count targets** — Track word count must stay within genre range for target duration.
+3. **Review section density** — Genre ranges identify risks, not compulsory cuts. Verify the chosen phrase allocation and preserve protected text; document any justified longer setting.
+4. **Review duration and configured caps** — Compare word counts with actual musical space. Do not pad to hit a genre target or silently bypass a configured generation cap.
 5. **Respect override preferences** — User's lyric-writing-guide.md preferences take precedence.
 6. **Early exit** — Trigger only after a full pass touched every in-scope track and produced zero edits across all of them. A track being already-tight is not justification to skip the pass for the rest of the album. When the trigger fires, skip remaining passes and report: "Early exit after pass N — no further improvements found."
 

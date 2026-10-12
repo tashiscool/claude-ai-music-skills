@@ -4,9 +4,7 @@ description: Validates all pre-generation gates before sending tracks to Suno. C
 argument-hint: <album-name or track-path>
 model: haiku
 prerequisites:
-  - lyric-writer
   - lyric-reviewer
-  - pronunciation-specialist
 allowed-tools:
   - Read
   - Glob
@@ -47,7 +45,7 @@ lyric-writer (+ suno-engineer) → pronunciation-specialist → lyric-reviewer �
 ```
 Do NOT proceed with gate evaluation until the mismatch is resolved — the wrong gates would be skipped.
 
-**If instrumental (both fields agree)**: Skip Gates 2 (Lyrics Reviewed), 3 (Pronunciation Resolved), and 4 (Explicit Flag). Mark them as `SKIP — Instrumental track`. Only run Gates 1, 5, and 6.
+**If instrumental (both fields agree)**: Use the lyric-reviewer's **Instrumental Arrangement Review**, not a vocal lyric report. Mark sung-stress, vocal pronunciation and breath judgments N/A. Run the native tool checks as returned: its Lyrics Box may contain structural tags, and the Explicit field still needs a deliberate value. Do not silently convert a raw FAIL to PASS based on an exemption the tool does not implement.
 
 **Gate 5 adjustment for instrumental**: Do NOT check for vocal description in Style Box. Instead verify the Style Box has genre/instrumentation/mood. Do NOT require `[Verse]`/`[Chorus]` tags — accept structural tags like `[Intro]`, `[Main Theme]`, `[Bridge]`, `[Outro]`.
 
@@ -57,6 +55,42 @@ Do NOT proceed with gate evaluation until the mismatch is resolved — the wrong
 
 The MCP tool behind this skill reports 8 blocking gates plus 3 advisories (Style Box Descriptor Count, Performance Cues, Generation Settings).
 
+**Two separate verdicts:** The tool evaluates text and metadata, not music. Its
+`assessment` field makes that scope explicit. For compatibility its legacy gate
+names and READY/ALL READY verdicts remain, but they are **automated checks only**.
+In particular, Lyrics Reviewed means text is present, and Style Prompt Complete
+means a Style Box is present. Neither establishes that the writing, melody or
+style works. Display these as **Lyric Text Present** and **Style Text Present**.
+
+Before a final generation recommendation, inspect the actual lyric-reviewer
+report for the current lyric and setting version, or its Instrumental Arrangement Review for an instrumental. It must cover applicable section purpose,
+stress/phrasing, transitions and unresolved decisions per
+[prosody-review.md](../lyric-writer/prosody-review.md). If absent or stale, report
+**MUSICAL REVIEW REQUIRED** and return to the reviewer even when the MCP says
+READY. Do not invent that review from counts or filled template fields. A first
+audition can use an explicitly proposed setting, but must be labeled unperformed
+and have separate user authorization; never require a preexisting finished take
+to test a new song. Source and spending permissions remain independent.
+
+### Review Freshness and Authorization
+
+Match the report's **input fingerprint** to the current inputs: the full Lyrics
+Box or instrumental structure, Style Box, Exclude Styles, Generation Settings,
+score/phrase allocation and reference audio. Use file hashes or an unambiguous
+versioned snapshot covering those inputs, not merely a review date. If a relevant
+input is absent, record that explicitly. If one changes, the earlier report is
+stale for that change: re-review the affected material and transitions, preserving
+unaffected evidence. A changed return must not inherit a timing claim unchecked.
+
+If there is no matching review, report MUSICAL REVIEW REQUIRED. If there is no
+applicable execution authorization or remaining attempt/credit budget, report
+AUTHORIZATION REQUIRED. These are agent checkpoint decisions, separate from the
+unchanged raw MCP verdict; no tool response grants consent. Apply the engineer's
+[Execution Boundary](../suno-engineer/SKILL.md#execution-boundary) to first takes
+and retries. A proposed setting can proceed to an authorized audition once the
+other requirements pass; a finished vocal recording is not a prerequisite to
+creating the first one.
+
 ### Gate 1: Sources Verified
 - **Check**: Track's `Sources Verified` field is `Verified` or `N/A`
 - **Fail if**: `Pending` or `❌ Pending`
@@ -64,12 +98,15 @@ The MCP tool behind this skill reports 8 blocking gates plus 3 advisories (Style
 - **Severity**: BLOCKING — Never generate with unverified sources
 - **Skip if**: Track is not source-based (N/A is acceptable)
 
-### Gate 2: Lyrics Reviewed
+### Gate 2: Lyric Text Present (legacy MCP name: Lyrics Reviewed)
 - **Check**: Lyrics Box is populated with actual lyrics (not template placeholders)
 - **Check**: No `[TODO]`, `[PLACEHOLDER]`, or template markers in lyrics
 - **Fail if**: Empty lyrics box or contains template text
 - **Fix**: Run `/bitwize-music:lyric-writer [track]` to write or complete the lyrics.
 - **Severity**: BLOCKING
+
+This gate does not inspect a reviewer report or validate prosody. Complete the
+separate musical review above before making a recommendation.
 
 ### Gate 3: Pronunciation Resolved
 - **Check**: All entries in Pronunciation Notes table have phonetic spellings applied in the Lyrics Box
@@ -108,14 +145,14 @@ The MCP tool behind this skill reports 8 blocking gates plus 3 advisories (Style
 ### Single Track
 
 1. Call `run_pre_generation_gates(album_slug, track_slug)` — returns all gate results (8 blocking + 3 advisory)
-2. Format pass/fail report from MCP response
-3. Output verdict: READY or NOT READY
+2. Format pass/fail report from MCP response, explicitly labeled automated checks
+3. Inspect the separate current musical review; output its evidence and unresolved decisions as a second verdict, not an inferred PASS
 
 ### Full Album
 
 1. Call `run_pre_generation_gates(album_slug)` — returns all gate results (8 blocking + 3 advisory)
-2. Format per-track and album-level summary from MCP response
-3. Output verdict: ALL READY, PARTIAL (list ready tracks), or NOT READY
+2. Format per-track and album-level automated-check summary from MCP response
+3. Inspect musical review coverage for each track; distinguish mechanically ready tracks from those needing musical review
 
 ---
 
@@ -132,14 +169,16 @@ The MCP tool behind this skill reports 8 blocking gates plus 3 advisories (Style
 | Gate | Status | Details |
 |------|--------|---------|
 | Sources Verified | PASS | Verified 2025-01-15 |
-| Lyrics Reviewed | PASS | 247 words, all sections tagged |
+| Lyric Text Present | PASS | Text populated; musical review checked separately |
 | Pronunciation Resolved | PASS | 3/3 entries applied |
 | Explicit Flag | PASS | Yes |
 | Style Prompt | PASS | "Male baritone, gritty..." |
 | Artist Names | PASS | No blocked names found |
 | Generation Settings | PASS | Model v6, Variety Off, Max Mode On |
 
-**Verdict**: READY FOR GENERATION
+**Automated verdict**: READY
+**Musical review**: Current report inspected; setting proposed, performance untested
+**Recommendation**: Ready for an authorized audition, not a claim of finished musical quality
 
 ---
 
@@ -148,7 +187,7 @@ The MCP tool behind this skill reports 8 blocking gates plus 3 advisories (Style
 | Gate | Status | Details |
 |------|--------|---------|
 | Sources Verified | FAIL | ❌ Pending |
-| Lyrics Reviewed | PASS | 312 words |
+| Lyric Text Present | PASS | 312 words; musical quality not assessed by this check |
 | Pronunciation Resolved | FAIL | "live" unresolved in V2:L3 |
 | Explicit Flag | FAIL | Not set |
 | Style Prompt | PASS | Complete |
@@ -183,6 +222,6 @@ The MCP tool behind this skill reports 8 blocking gates plus 3 advisories (Style
 3. **Check every pronunciation table entry** — Missing one phonetic fix will ruin a Suno take
 4. **Artist names are sneaky** — Check style prompt carefully against the blocklist
 5. **Be specific** — "Gate failed" is useless. "live in V2:L3 unresolved" is actionable
-6. **Instrumental tracks skip lyrics gates** — Gates 2, 3, 4 are N/A for instrumental tracks
+6. **Use the instrumental review route** — Vocal judgments are N/A; structural input, source, metadata and authorization checks still apply
 
 **Your deliverable**: Pass/fail report with album-level verdict.

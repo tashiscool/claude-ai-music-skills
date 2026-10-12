@@ -6,6 +6,18 @@ This project uses [Conventional Commits](https://conventionalcommits.org/) and [
 
 ## [Unreleased]
 
+### Fixed
+- **Finish musical-review handoffs and discovery.** Recognize delivery cues separated by dashes, colons or pipes without counting empty cues or the hyphen in Pre-Chorus. Instrumental-capable skills no longer advertise unconditional vocal prerequisites. Resume resolves actual inputs before persisting its phase; native phase output is documented as a status-only estimate.
+- **Show verbal patterns and recheck identified performances.** Require explicit scansion with foot/accent distinctions, and connect generated-take review, corrections and listening approval without inventing technical clearance or overruling the user's keeper decision. Add regression coverage and three cross-skill scenarios.
+- **Reading-ease scores no longer certify lyric quality.** Replace the formula's "well-crafted lyrics"/natural-language verdicts with reading-difficulty estimates and an explicit musical-quality limitation. Normalize curly apostrophes consistently in readability and syllable counts.
+- **Close the musical-review follow-up gaps.** Preserve syllabic consonant-l in bottled/handled while reducing called/failed, with paired regressions. Route first takes and retries through a current-input/source/authorization checkpoint, and provide an instrumental arrangement review instead of requiring a skipped lyric report. Add instruction-contract tests and eight explicit cross-skill acceptance scenarios; these are not automated artistic-quality certification.
+- **Separate automated text checks from musical review.** Syllable output now carries explicit heuristic/prosody limits; pre-generation output states that musical quality is not assessed. Existing tool parameters, gate names and verdict values remain compatible, but populated lyrics/style boxes no longer describe their success as actual review. The pre-generation skill requires a separate, current musical review before recommending an audition.
+- **Correct common spoken syllable estimates for negative contractions and nonsyllabic -ed endings**, including capitalized contractions and curly apostrophes. Preserve lexical/adjectival exceptions; counts remain approximate, not a pronunciation lexicon.
+
+### Changed
+- **Reconcile the remaining craft examples and documentary rules.** Genre lengths and counts are diagnostic rather than compulsory cuts; meaningful repeated endings and optional title/bookend placement are preserved. Distinguish factual narration, sourced quotation, attributed inference and disclosed fictional singers without inventing evidence or implying legal clearance.
+- **Review dramatic purpose and musical settings before rewriting for regularity.** Shared writer/reviewer guidance requires section-level stress and phrasing evidence, checks changed phrase allocations, distinguishes proposed composition from heard performance, and preserves motifs whose returns gain meaning. Removed blanket shared-imagery and beats-1-and-3 rules. Source-pending drafts may receive provisional refinement without clearing source approval or authorizing generation.
+
 ## [0.102.0] - 2026-09-16
 
 ### Added

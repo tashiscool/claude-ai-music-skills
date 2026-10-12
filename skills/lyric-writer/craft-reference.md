@@ -3,6 +3,13 @@
 Detailed tables and reference data for the lyric-writer skill.
 Read by the lyric-writer when specific craft guidance is needed.
 
+**Precedence:** Genre schemes, line counts, word targets and density tables here
+and in genre READMEs are drafting heuristics, not musical laws or verified
+provider limits. Apply [prosody-review.md](prosody-review.md) to the actual
+setting. A documented musical choice and protected source text take precedence
+over an automatic rewrite. Configured generation caps remain separate checks;
+do not silently bypass them to accommodate a draft.
+
 ---
 
 ## Rhyme Techniques
@@ -55,8 +62,8 @@ Read by the lyric-writer when specific craft guidance is needed.
 These apply universally regardless of genre:
 
 - **Forced rhymes** are NEVER acceptable — never bend grammar, invent words, or use filler phrases just to land a rhyme
-- **No self-rhymes** — never rhyme a word with itself
-- **No lazy repeats** — avoid rhyming near-identical words (mind/mind, time/time)
+- **Rhyme versus refrain** — a repeated word is not a new rhyme, but can be an effective refrain, vow or deliberate insistence
+- **No unearned repeats** — revise repetition that pads the lyric without dramatic or musical purpose; preserve earned returns
 - **Meaning over rhyme** — if a perfect rhyme sounds unnatural, use a near rhyme or restructure the line
 - **Consistency within sections** — whatever rhyme scheme you choose, maintain it through the section. No random switching mid-verse.
 
@@ -65,15 +72,15 @@ These apply universally regardless of genre:
 Before finalizing any lyrics, verify:
 1. Read each rhyming pair aloud — do the end words actually rhyme (per genre expectations)?
 2. Are there any orphan lines that should rhyme with something but don't?
-3. Is syllable count roughly consistent across corresponding lines? (see tolerance in Line Length table)
+3. Do corresponding lines fit their musical phrases, including deliberate variation in syllable counts?
 4. Are there filler phrases ("spoke the words", "you know what I mean") padding lines?
 5. Do quoted/paraphrased lines come from sourced material (for documentary albums)?
-6. Does the rhyme scheme match the genre? (Don't use AABB couplets for a folk ballad, don't use ABCB for hip-hop)
+6. Does the chosen rhyme scheme work with the genre and this song's purpose, including any intentional departure from convention?
 7. Say the lyrics without melody as plain prose — do they sound natural for the genre's vocal style?
 
 ### Common Anti-Patterns (All Genres)
 
-- ❌ Using the wrong rhyme scheme for the genre (hip-hop couplets in a folk song, etc.)
+- ❌ Following a genre's default rhyme scheme despite a worse musical or dramatic result
 - ❌ Forcing perfect rhymes where near rhymes sound more natural
 - ❌ Using filler lines to set up quotes ("he stood up and spoke the words")
 - ❌ Inventing fake quotes for real people when source quotes exist
@@ -98,7 +105,7 @@ Before finalizing any lyrics, verify:
 | Hip-Hop/Rap | 10-13+ | ±3 |
 | Metal/Electronic | Varies | Flexible |
 
-**Critical**: Verse 1 line lengths must match Verse 2 line lengths.
+**Check corresponding phrases**: When Verse 2 reuses Verse 1's melody, verify that its words fit that melody naturally. Counts may differ if phrasing accommodates them. A deliberately different melody or phrase length is not a defect; document and test the change rather than equalizing counts automatically.
 
 ---
 
@@ -155,23 +162,27 @@ Suno instrumental tags (`[Instrumental Break]`, `[Synth Solo]`, `[Guitar Solo]`,
 
 ### How to Hit Duration Targets
 
-**Add more sections, not longer sections.** Per-section maximums (see Section Length Limits below) are correct for Suno pacing. The way to reach 3:30+ is:
+**Choose musical development, not word-count padding.** If the target duration needs more material, possible options are:
 - Add a **3rd verse** (most effective)
 - Add a **pre-chorus** before each chorus
 - Add an **instrumental break** or solo
 - Add a **bridge** if missing
 
-Do NOT write 10-line verses or 8-line choruses — Suno will rush them.
+An additional phrase, a longer section or an instrumental passage may be more
+appropriate than another verse. Specify the added time; don't assume line breaks
+or tags guarantee a provider will follow it.
 
 ### Length Limits
 
-- **If draft exceeds 400 words (non-hip-hop) or 600 words (hip-hop)**: Cut it down before presenting.
-- **If draft is under 200 words**: Flag as "likely too short for target duration (3:30–5:00)" — suggest adding sections.
-- Count words after drafting. If over target, remove a verse or trim sections — don't just shorten lines. If under target, add a verse, pre-chorus, or instrumental break.
+- Count words after drafting and flag unusually dense or sparse drafts relative to the stated duration.
+- Check the full phrase allocation and intended delivery before suggesting a cut or addition.
+- Do not pad a deliberately short song or shorten protected words solely to fit a heuristic. Keep genuine provider/configured input caps distinct from these estimates.
 
 ### Section Length Limits by Genre
 
-**Why this matters**: Suno rushes, compresses, or skips content when sections are too long. These are hard limits — trim before presenting.
+**Why this matters**: Dense text can lead to rushed or omitted words. The tables
+are starting ranges, not unconditional limits; the chosen musical setting and
+performed result determine whether a section actually works.
 
 #### Hip-Hop / Rap / Trap / Drill / Grime / Phonk / Nerdcore
 
@@ -282,20 +293,18 @@ Do NOT write 10-line verses or 8-line choruses — Suno will rush them.
 | Chorus | 4–6 | |
 | Bridge | 2–4 | |
 
-### Section Length Enforcement
+### Section Length Review
 
-**Hard rules — enforce before presenting lyrics:**
+1. Compare the draft with genre ranges to identify possible density risks.
+2. Check actual phrase duration, syllables, articulation, rests and section function.
+3. When more words are justified, allocate more musical space or a different
+   delivery rather than assuming the earlier verse's duration still applies.
+4. When the language itself is redundant or awkward, propose a targeted revision
+   with a preserved baseline. Do not automatically cut protected words.
+5. Check the changed transition and any repeated setting again. Record unperformed
+   proposals as untested, not as proof the provider will deliver them.
 
-1. **Count lines per section** after drafting. Compare against genre table above.
-2. **If a section exceeds its max**: Trim it. Don't ask — cut it down, then present.
-3. **Hip-hop verse over 8 lines**: Split into two verses or cut. No exceptions.
-4. **Any chorus over 6 lines**: Trim. A long chorus loses its punch and causes Suno to rush.
-5. **Electronic verse over 6 lines**: Cut. Electronic tracks need space, not walls of text.
-6. **Punk sections over limits**: Punk is short and fast. If it's long, it's not punk.
-7. **When unsure about genre**: Use the Pop/Rock defaults (6–8 verse, 4–6 chorus, 4 bridge).
-8. **Also check BPM-aware limits** in the Lyric Density & Pacing section below — a genre may allow 8-line verses at fast tempo but only 4 at slow tempo.
-
-**Suno-specific reasoning**: Long sections cause:
+**Risks to test when words exceed the chosen musical space:**
 - Vocal rushing (cramming words into fixed musical time)
 - Loss of clarity (words blur together)
 - Section compression (Suno shortens the music to fit)
@@ -308,7 +317,8 @@ Do NOT write 10-line verses or 8-line choruses — Suno will rush them.
 
 ## Lyric Density & Pacing (Suno)
 
-Suno rushes through dense verse blocks. Verse length must match tempo and feel. **The slower the BPM, the fewer lines Suno can handle** without rushing, compressing, or skipping.
+Word density must be considered with tempo, phrase length and delivery. A slower
+tempo does not impose a fixed line limit: longer phrases can provide more space.
 
 **Genre-specific Suno verse limits are in each genre's README** under "Lyric Conventions → Density/pacing (Suno)". Always check the genre README for the track you're writing.
 
@@ -316,7 +326,7 @@ Suno rushes through dense verse blocks. Verse length must match tempo and feel. 
 
 | Genre Family | Default Lines/Verse | Max Safe | Topics/Verse | Key Rule |
 |---|---|---|---|---|
-| **Hip-Hop / Rap** | 8 (4 couplets) | 8 | 2-3 | Never exceed 8; half-time trap = treat as 65-75 BPM |
+| **Hip-Hop / Rap** | 8 (4 couplets) | 8 | 2-3 | Starting phrase budget; distinguish written tempo from half-time vocal feel |
 | **Pop** | 4 | 6-8 | 1-2 | Chorus-first — longer verses bury the hook |
 | **Rock** | 6 | 8 | 2 | 120 BPM sweet spot; guitar riffs need space |
 | **Punk** | 4 | 4 | 1 | Fast, short, every word punches |
@@ -324,7 +334,7 @@ Suno rushes through dense verse blocks. Verse length must match tempo and feel. 
 | **Metal** | 6-8 | 10 | 2-3 | Vocal delivery compresses syllables; thrash handles most |
 | **Doom Metal** | 4 | 6 | 1 | Slowest metal; each word carries crushing weight |
 | **Country / Folk** | 6 | 8 | 1-2 | Storytelling pace; ballads drop to 4 |
-| **Blues** | 3 (AAB) | 3 | 1 | Rigid structure — never break AAB |
+| **Blues** | 3 (AAB) | 3 | 1 | AAB is a common starting form, not the only valid one |
 | **Electronic / EDM** | 2-4 | 4 | 1 | Production is the star; vocals are texture |
 | **Ambient / Shoegaze** | 0-2 | 4 | 1 | Often instrumental; vocals are texture |
 | **R&B / Soul** | 6 | 8 | 1-2 | Melisma stretches syllables; groove > density |
@@ -354,7 +364,7 @@ When a genre README doesn't specify, use this table:
 
 ### Red Flags
 
-- 8-line verse at any BPM under 100 — too dense for Suno
+- A long verse has no stated phrase allocation or leaves inadequate space for its intended delivery
 - Verse reads like a list of names/facts — it's a Wikipedia entry, not a verse
 - Track concept says "laid back" but verses are wall-to-wall syllables
 - More than 3 proper nouns introduced in a single verse
@@ -419,9 +429,8 @@ Read-aloud test, smooth transitions, singability at target BPM.
 | Unsingable vowel sequences | "She oughta allow our hour" | "She gave us the hour" | Stacked diphthongs muddy at tempo |
 | Transition bumps | V1 ends reflective → V2 opens aggressive (no bridge) | Add pre-chorus or transitional line | Jarring shifts break the listener's flow |
 | Missing breath points | 12-syllable line with no natural pause | Split at caesura or add a comma break | Singers need air; dense lines get rushed |
-| Stress misalignment | "into the DARK-ness" on a weak beat | "the DARKness CALLS" on strong beats | Stressed syllables must land on downbeats |
+| Stress misalignment | An unstressed ending overwhelms the word's natural accent | Change the setting or wording to preserve the intended stress | Accent can come from timing, duration, pitch or articulation, including syncopation |
 | Choppy rhythm | "Stop. Go. Wait. No. Run." | "Stop and go — wait, no — run" | Staccato lines need connective tissue to sing |
-| Syllable mismatch | V1 line: 8 syllables, V2 line: 13 syllables | Match within ±2 syllables | Parallel lines should fit the same melodic phrase |
+| Syllable mismatch | V1 line: 8 syllables, V2 line: 13 syllables | Test the reused melody; adjust wording or explicitly change the setting if needed | Equal counts alone neither establish nor repair musical fit |
 
 ---
-

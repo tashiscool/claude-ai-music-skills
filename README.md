@@ -37,6 +37,24 @@ Claude: Imports stems from Suno, polishes per-stem
 
 Concept to released album. You generate on Suno, everything else happens in the terminal.
 
+### What the Quality Checks Establish
+
+Syllable tools estimate spoken counts; they do not analyze melody or certify
+prosody. Automated pre-generation READY means text and metadata checks passed,
+not that a lyric was musically reviewed. The writer/reviewer must separately
+examine dramatic development, purposeful repetition, stress, phrase timing and
+section contrast using the [musical review guide](skills/lyric-writer/prosody-review.md).
+A proposed rhythm or keyboard guide is not a sung performance. Preserve existing
+words while testing a different setting when the musical fit, rather than the
+lyric itself, is the problem.
+
+The review records each distinct line's stress pattern and distinguishes poetic
+feet from musical bars. After generation, apply the same section ledger to the
+identified take and recheck corrections; a kept take and an agent's completed
+technical review are separate records. Instrumentals use arrangement review
+without vocal prerequisites. Progress-tool phases are coarse estimates: the
+resume skill inspects current inputs before saving its resolved phase.
+
 ---
 
 ## Install

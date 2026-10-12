@@ -880,6 +880,33 @@ class TestPerformanceCuesGate:
 class TestRunPreGenerationGates:
     """Tests for the run_pre_generation_gates async handler."""
 
+    @pytest.mark.parametrize("separator", [" - ", " \u2014 ", " \u2013 ", ": ", " | "])
+    def test_delivery_cues_recognized_across_supported_separators(self, separator):
+        lyrics = f"[Verse 1{separator}quiet]\nLa la\n[Chorus{separator}open]\nNa na"
+        track = _track_with("pop, piano", lyrics)
+        with patch("pathlib.Path.read_text", return_value=track), \
+             patch.object(_text_analysis_mod, "_load_artist_blocklist", return_value=[]):
+            result = json.loads(_run(
+                _gates_mod.run_pre_generation_gates("test-album", "01-first-track")
+            ))
+        cue = next(g for g in result["tracks"][0]["gates"] if g["gate"] == "Performance Cues")
+        assert cue["status"] == "PASS"
+        assert cue["detail"] == "2/2 structure tags carry cues"
+
+    @pytest.mark.parametrize("tag", [
+        "[Pre-Chorus]", "[Post-Chorus]", "[Verse 1 - ]", "[Verse 1 \u2014 ]",
+        "[Verse 1 \u2013 ]", "[Verse 1: ]", "[Verse 1 | ]",
+    ])
+    def test_empty_direction_or_section_name_hyphen_is_not_a_cue(self, tag):
+        track = _track_with("pop, piano", f"{tag}\nLa la\n[Chorus]\nNa na")
+        with patch("pathlib.Path.read_text", return_value=track), \
+             patch.object(_text_analysis_mod, "_load_artist_blocklist", return_value=[]):
+            result = json.loads(_run(
+                _gates_mod.run_pre_generation_gates("test-album", "01-first-track")
+            ))
+        cue = next(g for g in result["tracks"][0]["gates"] if g["gate"] == "Performance Cues")
+        assert cue["status"] == "WARN"
+
     def setup_method(self):
         self._orig_cache = _shared_mod.cache
         self._mock_cache = MockStateCache()
@@ -904,6 +931,21 @@ class TestRunPreGenerationGates:
         assert result["total_tracks"] == 1
         assert result["tracks"][0]["verdict"] == "READY"
         assert result["album_verdict"] == "READY"
+
+    @pytest.mark.parametrize("track_slug", ["01-first-track", "02-second-track", ""])
+    def test_automated_verdict_does_not_certify_musical_review(self, track_slug):
+        with patch("pathlib.Path.read_text", return_value=TRACK_FILE_COMPLETE), \
+             patch.object(_text_analysis_mod, "_load_artist_blocklist", return_value=[]):
+            result = json.loads(_run(
+                _gates_mod.run_pre_generation_gates("test-album", track_slug)
+            ))
+        assert result.get("assessment", {}).get("musical_quality") == "not_assessed"
+        assert result["assessment"]["scope"] == "automated_text_and_metadata_checks"
+        for track in result["tracks"]:
+            lyrics = next(g for g in track["gates"] if g["gate"] == "Lyrics Reviewed")
+            assert "not assessed" in lyrics["detail"]
+            style = next(g for g in track["gates"] if g["gate"] == "Style Prompt Complete")
+            assert "not assessed" in style["detail"]
 
     def test_single_track_not_ready(self):
         """A track with pending sources returns NOT READY."""

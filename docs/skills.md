@@ -40,7 +40,7 @@ The research system is coordinated by a lead `/researcher` skill that dispatches
 
 | Skill | Description |
 |-------|-------------|
-| `lyric-reviewer` | QC gate before Suno — 9-point checklist |
+| `lyric-reviewer` | Vocal QC (14-point checklist), instrumental arrangement and identified-take review |
 | `explicit-checker` | Scan lyrics for explicit content, verify flags |
 | `plagiarism-checker` | Web search + LLM check for unintentional borrowing |
 | `voice-checker` | Detect AI-sounding patterns in lyrics |

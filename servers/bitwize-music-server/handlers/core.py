@@ -74,9 +74,10 @@ _GENERATION_SETTINGS_HEADING_RE = re.compile(r"(?m)^#{1,3}\s+Generation Settings
 # =============================================================================
 
 def _detect_phase(album: dict[str, Any]) -> str:
-    """Detect the current workflow phase for an album.
+    """Estimate an album's phase from cached statuses, not musical readiness.
 
-    Matches the decision tree from the resume skill.
+    Resume inspects actual inputs before reporting or persisting a resolved
+    phase; cached In Progress alone cannot prove that a draft is incomplete.
     """
     status = album.get("status", STATUS_UNKNOWN)
     tracks = album.get("tracks", {})

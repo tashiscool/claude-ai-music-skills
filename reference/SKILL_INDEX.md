@@ -126,7 +126,7 @@ Quick-reference guide for finding the right skill for any task.
 | [`import-audio`](/skills/import-audio/SKILL.md) | Move audio files to correct album location | Importing WAV files from Suno downloads |
 | [`import-track`](/skills/import-track/SKILL.md) | Move track .md files to correct album location | Importing track files from external sources |
 | [`lyric-refiner`](/skills/lyric-refiner/SKILL.md) | Multi-pass lyric refinement for tightening, cohesion, and album unity | Polishing lyrics after writing, before QC |
-| [`lyric-reviewer`](/skills/lyric-reviewer/SKILL.md) | QC gate before Suno generation (14-point checklist) | Final quality check before generating |
+| [`lyric-reviewer`](/skills/lyric-reviewer/SKILL.md) | Vocal QC (14-point checklist), instrumental arrangement and identified-take review | Before generation and after a take or correction |
 | [`lyric-writer`](/skills/lyric-writer/SKILL.md) | Write or review lyrics with prosody and rhyme craft | Writing new lyrics or fixing existing ones |
 | [`mastering-engineer`](/skills/mastering-engineer/SKILL.md) | Audio mastering guidance, loudness optimization | Mastering tracks to -14 LUFS for streaming |
 | [`mix-engineer`](/skills/mix-engineer/SKILL.md) | Per-stem audio polish (noise, EQ, compression, remix) | Polishing raw Suno output before mastering |
@@ -175,7 +175,7 @@ What to have ready before using each skill:
 | `/lyric-writer` | Track concept defined, sources captured (if documentary) |
 | `/pronunciation-specialist` | Lyrics written |
 | `/lyric-refiner` | Lyrics written (runs after lyric-writer, before QC) |
-| `/lyric-reviewer` | Lyrics complete, pronunciation checked |
+| `/lyric-reviewer` | Vocal: draft and pronunciation decisions; instrumental: structure/style; post-take: identified audio |
 | `/voice-checker` | Lyrics written, lyric-reviewer passed |
 | `/pre-generation-check` | Lyrics written, pronunciation resolved, style prompt created (instrumental: only Style Box needed) |
 | `/suno-engineer` | Lyrics written (auto-invoked by lyric-writer). For instrumental tracks: invoked directly as entry point |
@@ -240,8 +240,9 @@ What to have ready before using each skill:
             -> /lyric-reviewer
         INSTRUMENTAL TRACK (instrumental: true in frontmatter):
             -> /suno-engineer directly (Style Box + section tags only, no lyrics)
-    -> /pre-generation-check (validates all gates — auto-skips lyrics gates for instrumental tracks)
-    -> [Generate in Suno — instrumental tracks use Instrumental: On]
+            -> /lyric-reviewer (Instrumental Arrangement Review)
+    -> /pre-generation-check (current inputs, applicable raw checks, source approval and execution authorization)
+    -> [Execute only within an authorized budget — instrumental tracks use Instrumental: On]
     -> /mix-engineer (optional: polish raw audio)
     -> /mastering-engineer (master audio)
     -> /album-art-director (world-themed artwork)
@@ -251,8 +252,12 @@ What to have ready before using each skill:
 
 **Note**: Any album type can have instrumental tracks — OST is just the most common case.
 Mark a track as instrumental by setting `instrumental: true` in track frontmatter.
-Instrumental tracks skip: lyric-writer, pronunciation-specialist, lyric-reviewer.
-Pre-generation-check auto-skips Gates 2 (Lyrics), 3 (Pronunciation), 4 (Explicit) for instrumentals.
+Instrumentals skip vocal writing/pronunciation, but receive the lyric-reviewer's
+Instrumental Arrangement Review. The checkpoint keeps raw tool results intact:
+structural Lyrics Box content and deliberate Explicit metadata still apply.
+Only vocal stress, pronunciation and sung-breath judgments are N/A. All engineer
+handoffs prepare prompts by default; first takes and retries require the current
+checkpoint and a remaining authorized attempt/credit budget.
 
 ### Resume Existing Work
 ```

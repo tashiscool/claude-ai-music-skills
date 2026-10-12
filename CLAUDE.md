@@ -134,6 +134,10 @@ At the beginning of a fresh session:
 
 **After writing or revising lyrics**, run the 13-point quality checklist from `/skills/lyric-writer/SKILL.md`. Report violations without being asked.
 
+**Musical review is not a counter result.** Follow `/skills/lyric-writer/prosody-review.md`: review dramatic purpose and every section's musical setting, retain earned motifs, and separate proposed scansion/composition from an identified performed take. Automated gate READY means text/metadata checks passed, not musical approval. A Pending source gate does not prevent provisional craft review or become cleared by it.
+
+**Prompt preparation is not execution permission.** Automatic handoff to suno-engineer is prompt-only. Before a first take or retry, apply its Execution Boundary and the current pre-generation checkpoint, including source approval, reviewed input identity and the user's remaining attempt/credit budget. Instrumentals receive an arrangement review, not an impossible vocal-report prerequisite.
+
 **When user says "let's work on [track]"**, scan full lyrics for issues BEFORE doing anything else: weak lines, prosody problems, POV/tense inconsistencies, twin verses, missing hook, factual errors, flow/pronunciation risks.
 
 ---
@@ -215,6 +219,14 @@ Album target duration set during Phase 3 (Sonic Direction). Tracks inherit unles
 **Batch operations**: To mark all Generated tracks as Final after QA, use `update_track_field(album_slug, track_slug, "status", "Final")` for each track via MCP, or ask Claude to batch-approve all tracks when all have ✓ in their Generation Logs.
 
 ### Regeneration Workflow
+
+For new takes and review/approval branches, apply the lyric-reviewer's
+[After Generation review](skills/lyric-writer/prosody-review.md#after-generation).
+Check the identified audio section by section, record failures and recheck
+corrections. Keep human keeper decisions separate from unperformed technical
+checks; do not replace the user's preferred recording or revoke its approval.
+Every retry below remains subject to the current checkpoint and remaining
+execution authorization. No automatic retry is permitted after an uncertain charge.
 
 When a user rejects a generated track (doesn't like the result, wrong style, pronunciation issues, etc.):
 
