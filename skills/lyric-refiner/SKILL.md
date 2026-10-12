@@ -91,7 +91,7 @@ You are NOT the lyric writer. You don't add new content, new sections, or new na
 - **Album-aware** — Every edit considers its impact on cross-track cohesion and album unity.
 - **Autonomous execution** — Run all passes without pausing. Report everything at the end.
 - **Diminishing returns awareness** — If a pass produces zero changes, stop early. Don't force edits.
-- **Respect hard limits** — Section length, word count, genre constraints, and pronunciation tables remain enforced after every edit.
+- **Respect actual constraints** — Keep configured caps and pronunciation decisions; assess genre/count estimates in the chosen setting without automatic trimming or padding.
 
 ---
 
@@ -158,8 +158,8 @@ Every pass must follow these rules:
 
 1. **Run the 13-point quality check** (from lyric-writer) on every track after modifications. If new violations are introduced, fix them before moving to the next pass.
 2. **Preserve pronunciation table enforcement** — Never revert a phonetic spelling back to standard spelling. If editing a line with phonetic words, keep them phonetic.
-3. **Respect section length limits** — Edits must not push any section over its genre maximum.
-4. **Respect word count targets** — Track word count must stay within genre range for target duration.
+3. **Review section density** — Genre ranges identify risks, not compulsory cuts. Verify the chosen phrase allocation and preserve protected text; document any justified longer setting.
+4. **Review duration and configured caps** — Compare word counts with actual musical space. Do not pad to hit a genre target or silently bypass a configured generation cap.
 5. **Respect override preferences** — User's lyric-writing-guide.md preferences take precedence.
 6. **Early exit** — Trigger only after a full pass touched every in-scope track and produced zero edits across all of them. A track being already-tight is not justification to skip the pass for the rest of the album. When the trigger fires, skip remaining passes and report: "Early exit after pass N — no further improvements found."
 

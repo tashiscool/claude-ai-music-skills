@@ -20,6 +20,10 @@ allowed-tools:
 
 **Input**: $ARGUMENTS
 
+Default to **prompt-only**. All generation and iteration advice in this skill
+is subject to the [Execution Boundary](#execution-boundary); an automatic
+handoff or request for a prompt does not authorize spending or retries.
+
 When invoked with a track file:
 1. Read the track file
 2. **Check if instrumental**: Look for `instrumental: true` in frontmatter or `**Instrumental** | Yes` in Track Details
@@ -345,9 +349,37 @@ As the Suno engineer, you:
 8. **Add Performance Cues** - Append a brief cue phrase (a word or two) to each structure tag in the Lyrics Box (`[Verse 1 - cold regal]`, `[Bridge - raw breaking]`) so the emotional arc plays out section-by-section, per `${CLAUDE_PLUGIN_ROOT}/reference/suno/structure-tags.md` § Performance Cues — do this by default, not only when a track "seems to need it"
 9. **Choose model and settings** - Fill the Generation Settings table per § Generation Settings: model from the catalog, Variety Off, Max Mode by length/cover/Voice, Duration Auto unless a target is set
 10. **Build style prompt** - Assemble final prompt (vocals FIRST), populate Exclude Styles if needed, then review the descriptor mix — collapse synonym-piles so every term adds distinct info (a focused ~10 is fine; trim only real bloat; see § Style Prompt above)
-11. **Generate in Suno** - Create track with assembled inputs. On `v6-wild`, budget two or three generations before judging: its output length is unpredictable (~50 s to ~7 min observed on similar prompts) and the brief does not control it
-12. **Iterate if needed** - Refine based on output quality, one change per pass — see § Common Issues & Fixes
-13. **Log results** - Document in Generation Log with rating
+11. **Stop at the Execution Boundary** - Prompt preparation is complete, not generation authorization. Follow the checkpoint below for first takes and every retry.
+12. **Execute only an approved request** - Use the reviewed inputs within the user's remaining attempt/credit budget; stop if the model, price, reference audio or scope changes beyond that authorization.
+13. **Review and log results** - Compare the actual take with the brief. Record the take/version, what was heard, and whether another attempt is authorized. A recommendation to iterate does not itself permit a retry.
+
+## Execution Boundary
+
+The default is **prompt-only**, including automatic handoff from lyric-writer.
+Writing lyrics, filling settings or asking for a style prompt does not authorize
+generation, purchases, paid downloads, voice uploads or retries.
+
+Before the first execution and every retry:
+
+1. Route the exact current inputs through `/bitwize-music:pre-generation-check`.
+   Require current musical review (vocal or instrumental), applicable human
+   source verification and pronunciation decisions. Do not infer approval from
+   a nonempty file, a count statistic or the raw MCP READY verdict.
+2. Identify the user's authorization and remaining **budget**: which tracks,
+   provider/model, maximum attempts and maximum credits/cost. A standing grant
+   can cover a batch; do not ask again for each take within its unchanged bounds.
+3. Confirm the planned call is still within those bounds. Recheck changed inputs
+   and review freshness. Never turn a recommendation for several takes into an
+   automatic spending allowance, or retry an uncertain request that may already
+   have consumed credits without reconciling it first.
+4. If the review, source status, authorization, current cost or remaining balance
+   is missing or uncertain, stop before execution and report what is needed.
+   A musical-quality check does not authorize expenditure.
+
+Once a budget is exhausted, queue further ideas; do not purchase or generate
+more. For services without credit charges, still respect explicit authorization,
+privacy, resource and upload limits. Use only user-authorized recordings and
+downloads; a prompt-writing request does not authorize replacing an existing take.
 
 ---
 

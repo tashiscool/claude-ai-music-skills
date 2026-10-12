@@ -47,7 +47,7 @@ lyric-writer (+ suno-engineer) → pronunciation-specialist → lyric-reviewer �
 ```
 Do NOT proceed with gate evaluation until the mismatch is resolved — the wrong gates would be skipped.
 
-**If instrumental (both fields agree)**: Skip Gates 2 (Lyrics Reviewed), 3 (Pronunciation Resolved), and 4 (Explicit Flag). Mark them as `SKIP — Instrumental track`. Only run Gates 1, 5, and 6.
+**If instrumental (both fields agree)**: Use the lyric-reviewer's **Instrumental Arrangement Review**, not a vocal lyric report. Mark sung-stress, vocal pronunciation and breath judgments N/A. Run the native tool checks as returned: its Lyrics Box may contain structural tags, and the Explicit field still needs a deliberate value. Do not silently convert a raw FAIL to PASS based on an exemption the tool does not implement.
 
 **Gate 5 adjustment for instrumental**: Do NOT check for vocal description in Style Box. Instead verify the Style Box has genre/instrumentation/mood. Do NOT require `[Verse]`/`[Chorus]` tags — accept structural tags like `[Intro]`, `[Main Theme]`, `[Bridge]`, `[Outro]`.
 
@@ -65,7 +65,7 @@ means a Style Box is present. Neither establishes that the writing, melody or
 style works. Display these as **Lyric Text Present** and **Style Text Present**.
 
 Before a final generation recommendation, inspect the actual lyric-reviewer
-report for the current lyric and setting version. It must cover section purpose,
+report for the current lyric and setting version, or its Instrumental Arrangement Review for an instrumental. It must cover applicable section purpose,
 stress/phrasing, transitions and unresolved decisions per
 [prosody-review.md](../lyric-writer/prosody-review.md). If absent or stale, report
 **MUSICAL REVIEW REQUIRED** and return to the reviewer even when the MCP says
@@ -73,6 +73,25 @@ READY. Do not invent that review from counts or filled template fields. A first
 audition can use an explicitly proposed setting, but must be labeled unperformed
 and have separate user authorization; never require a preexisting finished take
 to test a new song. Source and spending permissions remain independent.
+
+### Review Freshness and Authorization
+
+Match the report's **input fingerprint** to the current inputs: the full Lyrics
+Box or instrumental structure, Style Box, Exclude Styles, Generation Settings,
+score/phrase allocation and reference audio. Use file hashes or an unambiguous
+versioned snapshot covering those inputs, not merely a review date. If a relevant
+input is absent, record that explicitly. If one changes, the earlier report is
+stale for that change: re-review the affected material and transitions, preserving
+unaffected evidence. A changed return must not inherit a timing claim unchecked.
+
+If there is no matching review, report MUSICAL REVIEW REQUIRED. If there is no
+applicable execution authorization or remaining attempt/credit budget, report
+AUTHORIZATION REQUIRED. These are agent checkpoint decisions, separate from the
+unchanged raw MCP verdict; no tool response grants consent. Apply the engineer's
+[Execution Boundary](../suno-engineer/SKILL.md#execution-boundary) to first takes
+and retries. A proposed setting can proceed to an authorized audition once the
+other requirements pass; a finished vocal recording is not a prerequisite to
+creating the first one.
 
 ### Gate 1: Sources Verified
 - **Check**: Track's `Sources Verified` field is `Verified` or `N/A`
@@ -205,6 +224,6 @@ separate musical review above before making a recommendation.
 3. **Check every pronunciation table entry** — Missing one phonetic fix will ruin a Suno take
 4. **Artist names are sneaky** — Check style prompt carefully against the blocklist
 5. **Be specific** — "Gate failed" is useless. "live in V2:L3 unresolved" is actionable
-6. **Instrumental tracks skip lyrics gates** — Gates 2, 3, 4 are N/A for instrumental tracks
+6. **Use the instrumental review route** — Vocal judgments are N/A; structural input, source, metadata and authorization checks still apply
 
 **Your deliverable**: Pass/fail report with album-level verdict.

@@ -47,7 +47,13 @@ You analyze the current state of albums and tracks and recommend the optimal nex
 
 Analyze album and track statuses to determine the optimal next action.
 
-**Instrumental detection**: Check each track's frontmatter for `instrumental: true` or Track Details table for `**Instrumental** | Yes`. Instrumental tracks bypass the lyrics workflow (lyric-writer, pronunciation-specialist, lyric-reviewer) and go directly to `/bitwize-music:suno-engineer` for Style Box creation.
+**Instrumental detection**: Check each track's instrumental fields and report disagreements. Instrumentals skip vocal writing/pronunciation, not musical review: prepare Style Box and structural tags with `/bitwize-music:suno-engineer`, then obtain the lyric-reviewer's **Instrumental Arrangement Review**.
+
+Inspect actual inputs with `get_album_full(album_slug, include_sections="lyrics,style")`
+when status alone is ambiguous. A recommendation is not execution authorization:
+every first take or retry must pass the current checkpoint and the engineer's
+Execution Boundary, including the remaining user-authorized budget. Pending
+sources block generation, not an explicitly requested provisional craft review.
 
 ```
 Album Status = "Concept"
@@ -65,23 +71,25 @@ Album has tracks with status "Not Started"
     YES → "Create Style Box for instrumental track [name]. Use /bitwize-music:suno-engineer directly"
     NO  → "Write lyrics for track [first not-started track]. Use /bitwize-music:lyric-writer"
 
-Album has tracks with status "In Progress" (lyrics partially written)
-  → "Finish lyrics for track [first in-progress track]. Use /bitwize-music:lyric-writer"
+Album has "In Progress" tracks with incomplete actual inputs
+  → Vocal: finish the lyric with /bitwize-music:lyric-writer
+  → Instrumental: finish style/structure with /bitwize-music:suno-engineer in prompt-only mode
 
 Album has tracks with status "Sources Pending"
-  → "Verify sources for track [name]. Check SOURCES.md, then update sources_verified field."
+  → "Obtain human source verification for [name] through /bitwize-music:verify-sources; do not infer approval from an agent review."
 
 All tracks have lyrics (or Style Box for instrumentals), none generated
-  → Has vocal tracks?
-    YES → "Run /bitwize-music:pronunciation-specialist on vocal tracks, then /bitwize-music:lyric-reviewer for final QC, then /bitwize-music:pre-generation-check to validate all gates (instrumental tracks auto-skip lyrics gates)."
-    NO (all instrumental) → "All Style Boxes ready! Run /bitwize-music:pre-generation-check to validate gates before generating on Suno."
+  → Vocal-only: pronunciation-specialist, then lyric-reviewer
+  → Instrumental-only: lyric-reviewer's Instrumental Arrangement Review
+  → Mixed: pronunciation on vocal tracks, then the appropriate reviewer route for every track
+  → All cases: /bitwize-music:pre-generation-check for current inputs, source clearance and execution authorization
 
 Some tracks generated, some not
   → Any Generated tracks without ✓ in Generation Log Rating?
     YES → "Track [name] needs review. Listen and approve (mark ✓ in Generation Log) or regenerate.
            Style issue → /bitwize-music:suno-engineer to revise Style Box, then regenerate
            Lyrics issue → /bitwize-music:lyric-writer to fix lyrics, then regenerate
-           Bad luck → Regenerate on Suno (non-deterministic, same settings may give better result)"
+           Another-take proposal → Check current review and remaining authorization before any retry"
     NO  → "Generate track [first un-generated track] on Suno. Use /bitwize-music:suno-engineer"
 
 All tracks generated, none Final
@@ -159,7 +167,7 @@ Or start something new:
 When multiple albums are in progress, prioritize:
 
 1. **Closest to completion** — An album with 7/8 tracks done beats one with 2/10
-2. **Unblocked work** — An album waiting for source verification is blocked; one needing lyrics is not
+2. **Unblocked work** — Source verification can block generation while provisional writing/refinement remains possible; choose within the user's requested scope
 3. **Last worked on** — Favor the album from the last session (continuity)
 4. **Higher track count** — Bigger album = more investment to protect
 

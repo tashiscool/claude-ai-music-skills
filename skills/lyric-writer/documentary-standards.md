@@ -1,149 +1,99 @@
-# Documentary & True Crime Legal Standards
+# Documentary & Historical Song Standards
 
-Legal guidelines for writing lyrics about real people and events.
-
----
+Editorial safeguards for songs involving real people, events or source material.
+This is not legal clearance. Sensitive allegations, rights and publication risks
+may still need qualified review. A more abstract phrase is not automatically
+safer or better supported than a precise one.
 
 ## When to Apply These Standards
 
-Apply documentary legal standards for:
-- **True crime albums** (criminal cases, trials, investigations)
-- **Documentary storytelling** (real events, real people)
-- **Biographical work** (artist profiles of real people)
-- **Historical narratives** (factual events from history)
-- **Any work citing sources** (if RESEARCH.md or SOURCES.md exists)
+Apply these checks to external factual claims, whether or not RESEARCH.md or
+SOURCES.md already exists. A sourced song may also contain expressly fictional
+scenes. Classify each passage instead of forcing the whole song into one voice.
 
----
+## Evidence Modes
 
-## Core Legal Principles
+### Factual Narration
 
-**The Five Rules:**
-1. **No impersonation** - Use third-person narrator voice only, never speak AS the person
-2. **No fabricated quotes** - Never put words in quotes unless documented in sources
-3. **No internal state claims** - Never claim to know what someone thought, felt, believed, or feared
-4. **No speculative actions** - Stick to documented events, don't invent daily activities
-5. **No negative factual claims** - Don't claim "nobody saw" or "nobody heard" (can't prove negatives)
+Keep real actors, decisions, chronology and outcomes supported by adequate
+sources. Do not silently turn an allegation into a finding, sequence into
+causation, contact into control, or structural incentive into private intention.
+An external narrator can tell what happened without becoming the historical
+person. First-person authorial observation is not automatically impersonation.
 
----
+### Sourced Quotation
 
-## What to AVOID (High Risk)
+Use a real person's words only with an exact source and context. Distinguish
+verbatim quotation from paraphrase; do not silently edit a quotation to fit a
+meter. Documented testimony about feelings can be attributed, without claiming
+unlimited access to the speaker's mind. A source for one statement does not
+authenticate invented surrounding dialogue. Quoting does not authorize cloning
+the person's voice or using an unlicensed recording.
 
-### Internal State Claims
-- ❌ "She was afraid"
-- ❌ "He felt angry"
-- ❌ "She believed him"
-- ❌ "He knew it was wrong"
-- ❌ "She wanted to escape"
-- ❌ "Living in fear"
-- ❌ "Tried to disappear"
-- ❌ "Can't believe what's real"
-- ❌ "Didn't know where to go"
+### Attributed Inference
 
-### Fabricated Quotes
-- ❌ "I need help," she cried
-- ❌ "We'll start the process," they said
-- ❌ Direct speech without documented source
+An interpretation may be forceful when its evidentiary basis and limits are
+clear. Identify the underlying facts in the source notes and distinguish the
+narrator's reading from reported speech or established motive. Attribution need
+not become a repeated disclaimer on every line, but the lyric must not present
+an inference as a documented private thought or verified event. If the implied
+claim is stronger than the evidence, narrow it rather than hiding it in metaphor.
 
-### Speculative Actions
-- ❌ "She finally made the call" (unless documented HOW)
-- ❌ "Goes to sleep that night" (undocumented private action)
-- ❌ "Waiting for the call" (speculative daily activity)
-- ❌ "June 21st she waited" (inventing specific undocumented timeline)
+### Disclosed Fiction
 
-### Negative Factual Claims
-- ❌ "Nobody heard her scream"
-- ❌ "Nobody saw what happened"
-- ❌ "No one knew the truth"
+An expressly fictional or composite singer may use first person, dialogue,
+interiority and invented everyday action. Identify this mode in the track's
+Lyrical Approach and source boundary; mark transitions when a song also contains
+documentary narration. This includes a newly imagined scene, an inherited
+composite or a hypothetical future, not just a named historical witness.
 
----
+Do not disguise invention about an identifiable real person as a composite.
+Do not manufacture a real person's confession, wrongdoing, private encounter or
+victim testimony. Fiction illustrates a documented mechanism; it is not evidence
+that a specific event happened. A future scene must not imply an unimplemented
+program already operates. Keep the actual historical story recognizable rather
+than replacing every event with a generic invented household.
 
-## What to USE Instead (Legally Safe)
+## The Five Rules
 
-### Pattern-Based Language
-- ✅ "The pattern started" (not "first time")
-- ✅ "The cycle repeated" (not "second time")
-- ✅ "Years of documented abuse" (pattern, not specific incidents)
+1. **Classify the passage.** Record factual narration, sourced quotation,
+   attributed inference or disclosed fiction in the existing source/approach
+   notes. Mixed-mode songs are permitted when the boundary is clear.
+2. **Never fabricate evidence.** No invented words, emotions or acts presented
+   as a real person's documented history. Do not use quotation marks to imply
+   a source exists when it does not.
+3. **Match certainty to support.** Factual assertions need relevant evidence;
+   negative or universal assertions need evidence matching that breadth. They
+   are not inherently impossible, but absence of a record is not proof of an
+   event's absence.
+4. **Preserve context and people.** Do not erase material qualifications or
+   displace victims with a list of powerful names. Each named actor should do
+   narrative or explanatory work.
+5. **Keep approvals separate.** Agent research and lyric refinement do not
+   substitute for human source verification, listening approval, rights review
+   or permission to spend on generation.
 
-### Observable Behavior
-- ✅ "She called 911" (documented action)
-- ✅ "Court records show" (attributed to source)
-- ✅ "Testimony revealed" (documented in trial)
-- ✅ "The walls kept her screams in" (describes situation, not claiming "nobody heard")
+## Review Examples
 
-### Documented Psychiatric/Medical States
-- ✅ "Brief reactive psychosis" (diagnosis from doctor)
-- ✅ "PTSD confirmed" (documented diagnosis)
-- ✅ "Testimony says she lost her mind" (attributed to testimony)
+| Passage | Review decision |
+| --- | --- |
+| An invented parent says, "I'm tired of counting," in an identified composite scene | Permitted fictional dialogue; not an unsourced quotation from a real witness |
+| The song attributes the same line to a named real parent interviewed in a report | Require the actual quotation or clearly label a supported paraphrase |
+| A narrator interprets a recorded sequence of institutional decisions | Check the cited facts and wording; do not require invented proof of private motive |
+| "Nobody answered" based solely on a source not mentioning an answer | Overbroad; state the documented failure or the source's actual scope |
+| "The walls kept her screams in" offered as a supposedly safer substitute | Still implies facts about the event; metaphor does not supply evidence |
+| A number, date or phrase is inconvenient to sing | Change the setting or use a faithful attributed paraphrase, not a false fact |
 
-### Narrator Description vs. Internal Claims
-- ✅ "She asked for protection" (observable, documented)
-- ❌ "She felt desperate" (internal state)
-- ✅ "Reality hitting hard" (narrator observation of situation)
-- ❌ "She couldn't process" (internal mental state)
-- ✅ "Four years of violence" (documented pattern)
-- ❌ "Four years of hiding" (internal intention)
+## Before Generation
 
-### Timing Without Speculation
-- ✅ "Two days before June 23rd" (documented timing)
-- ❌ "June 21st she waited, June 22nd still nothing" (speculative daily actions)
+- Read the current source material, not only an earlier agent summary.
+- Check each factual assertion and quote against its exact source and limits.
+- Verify that fictional staging and inference cannot be mistaken for sourced
+  testimony, real private conduct or an implemented policy.
+- Keep facts, qualifications and scene boundaries intact after lyric revisions.
+- Record unresolved claims and retain Pending source status until the required
+  human verification. A strong lyric is not a source-approval receipt.
 
----
-
-## Attribution Techniques
-
-When you need to describe something close to internal state, **attribute it to a source:**
-
-- ✅ "Doctors diagnosed PTSD"
-- ✅ "Testimony revealed years of abuse"
-- ✅ "Court records documented the pattern"
-- ✅ "She testified 'You hurt me again and again'" (actual quote with attribution)
-- ✅ "According to trial testimony" (explicit attribution)
-
----
-
-## Before/After Examples
-
-### Example 1: Internal State
-- ❌ BEFORE: "She was living in dread, trying to survive"
-- ✅ AFTER: "Years of documented abuse, the pattern escalating"
-
-### Example 2: Fabricated Quote
-- ❌ BEFORE: "'I need protection,' she begged"
-- ✅ AFTER: "She asked for protection, asked to get away"
-
-### Example 3: Speculative Action
-- ❌ BEFORE: "She finally made the call, hiding in the bathroom"
-- ✅ AFTER: "She reached out for help, contacted the authorities"
-
-### Example 4: Negative Claim
-- ❌ BEFORE: "Nobody heard her scream, nobody saw"
-- ✅ AFTER: "The walls kept her screams in, the world couldn't see within"
-
-### Example 5: Pattern vs. Specific
-- ❌ BEFORE: "The first time he hit her, the second time worse"
-- ✅ AFTER: "The pattern started, the cycle repeated, years of escalation"
-
----
-
-## The Documentary Standard
-
-**Ask yourself for EVERY line:**
-1. Can I cite this claim to a specific source?
-2. Am I claiming internal knowledge I can't have?
-3. Am I inventing quotes or dialogue?
-4. Am I speculating about undocumented actions?
-5. Am I making negative claims I can't prove?
-
-**If the answer to ANY of these is problematic, rewrite the line.**
-
----
-
-## Why This Matters
-
-Legal issues can:
-- Expose you to defamation claims
-- Undermine the credibility of the entire work
-- Require expensive revisions or takedowns
-- Damage your reputation as a documentary artist
-
-**The standard**: If you can't cite it, don't write it. If you can't prove it, don't claim it. If it's internal, don't assume it.
+The goal is honest, effective storytelling: neither a sung bibliography nor
+fabricated certainty. Preserve pleasure, humor, intimacy and ambiguity where the
+story warrants them, without using them to obscure who did what.

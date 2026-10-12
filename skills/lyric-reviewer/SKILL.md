@@ -21,9 +21,20 @@ allowed-tools:
 
 ### Instrumental Guard
 
-When reviewing a track, **first check** the track's frontmatter for `instrumental: true` or the Track Details table for `**Instrumental** | Yes`. If the track is instrumental:
-- **SKIP** the lyrics review for this track and report: "SKIP — Instrumental track (no lyrics to review)"
-- When reviewing an album, skip instrumental tracks and note them in the summary.
+When reviewing a track, **first check** the track's frontmatter for `instrumental: true` and the Track Details table for `**Instrumental** | Yes`. If those disagree, report the mismatch before choosing a route. For an instrumental, skip the vocal-only checks and perform the **Instrumental Arrangement Review** below. Include that report in album coverage rather than sending the track into a lyric-review loop.
+
+## Instrumental Arrangement Review
+
+Review section purpose, motif/contour, pulse and phrase allocation, contrast,
+transitions and ending against the current Style Box, structural tags, settings
+and any score/reference audio. Record the input versions or hashes. Mark lyric
+stress, vocal pronunciation and sung breath checks N/A. Keep source claims,
+credit authorization and applicable metadata checks in scope.
+
+With no rendered take, label the arrangement proposed and performance untested.
+A keyboard guide of a vocal line does not verify a singer's breath or diction.
+Return this arrangement report to `/bitwize-music:pre-generation-check`; no
+separate fictional lyric report is required.
 
 ### Vocal Track Review
 
@@ -36,7 +47,7 @@ Based on the argument provided:
 
 **Album path** (`artists/[artist]/albums/[genre]/album-name/`):
 - Glob all track files in `tracks/`
-- Run 14-point checklist on each (skip instrumental tracks)
+- Run the vocal checklist or Instrumental Arrangement Review on each track
 - Generate consolidated album report
 
 **Default behavior**:
@@ -63,6 +74,11 @@ You are a dedicated QC specialist for lyrics review. Your job is to catch issues
 
 **Role**: Quality control gate between lyric-writer and suno-engineer
 
+Record the input fingerprint after any pronunciation edits, using the same
+lyrics/structure, style, exclusions, settings, score and reference-audio scope
+as the pre-generation checkpoint. Refresh the affected review when those inputs
+change. Do not label an earlier report current just because its date is recent.
+
 ```
 lyric-writer (WRITES + SUNO PROMPT) → pronunciation-specialist (RESOLVES) → lyric-reviewer (VERIFIES) → pre-generation-check
                                                                                     ↑
@@ -76,8 +92,8 @@ lyric-writer (WRITES + SUNO PROMPT) → pronunciation-specialist (RESOLVES) → 
 ## The 14-Point Checklist
 
 ### 1. Rhyme Check
-- Repeated end words, self-rhymes, predictable patterns
-- **Warning**: Self-rhyme, repeated end word
+- Assess repeated endings and predictable patterns in context; preserve purposeful refrains, vows and repeated addresses
+- **Warning**: Unearned padding or a forced rhyme, not a repeated word by itself
 
 ### 2. Prosody Check
 - Multi-syllable word stress, inverted word order
@@ -103,33 +119,33 @@ lyric-writer (WRITES + SUNO PROMPT) → pronunciation-specialist (RESOLVES) → 
 - **Warning**: Clearly forced/awkward line
 
 ### 7. Documentary Check (Conditional)
-- Only if RESEARCH.md exists
-- Internal state claims, fabricated quotes, speculative actions
-- **Critical**: Fabricated quote, internal state without testimony
+- Apply when lyrics make external factual claims, even if the research file is missing
+- Classify factual narration, sourced quotation, attributed inference and disclosed fiction using [documentary-standards.md](../lyric-writer/documentary-standards.md)
+- **Critical**: Fabricated evidence or undisclosed invented speech/actions attributed to a real person; not an expressly fictional singer's interior life
 
 ### 8. Factual Check (Conditional)
-- Only if RESEARCH.md exists
+- Whenever external factual claims appear, including when research documentation is missing
 - Names, dates, numbers, events match sources
 - **Critical**: Wrong date/name/major fact
 
 ### 9. Length Check
 - Word count vs target duration (track Target Duration → album Target Duration → genre default)
-- **Warning**: Over target range for specified duration, or 3+ verses without explicit request
-- **Critical**: Over 500 words (non-hip-hop) or 700 words (hip-hop), unless target duration is 5:00+
+- **Warning**: Density/length risk needing a concrete phrase allocation or audition
+- **Blocking**: An applicable configured generation cap is exceeded; don't equate a genre estimate with a provider limit
 
 ### 10. Section Length Check
 - Count lines per section, compare against genre limits (see lyric-writer Section Length Limits)
-- **Hard fail**: Any section exceeding its genre max must be flagged for trimming
+- **Warning**: A section exceeds a starting range; evaluate its actual musical space before proposing a trim
 
 ### 11. Rhyme Scheme Check
 - Verify rhyme scheme matches the genre (see lyric-writer Default Rhyme Schemes by Genre)
-- No orphan lines, no random scheme switches mid-verse
-- **Warning**: Inconsistent scheme within a section, orphan unrhymed line
+- Check purposeful departures from the chosen scheme without forcing every line to rhyme
+- **Warning**: An unintended break weakens the musical pattern
 
 ### 12. Density/Pacing Check
 - Verse line count vs genre README's `Density/pacing (Suno)` default
 - Cross-reference BPM/mood from Musical Direction
-- **Hard fail**: Any verse exceeding the genre's max line count
+- **Warning**: Words crowd the chosen phrases or conflict with the intended delivery; line count alone is not a failure
 
 ### 13. Verse-Chorus Echo Check
 - Compare last 2 lines of every verse against first 2 lines of the following chorus
@@ -204,6 +220,9 @@ When you detect a homograph (live, read, lead, wind, tear, bass, bow, etc.):
 **Album**: [name]
 **Tracks reviewed**: X
 **Date**: YYYY-MM-DD
+**Track type**: Vocal / Instrumental arrangement
+**Reviewed inputs**: Paths plus versions/hashes for lyrics or structural tags, Style Box, Generation Settings, score and reference audio (or explicitly absent)
+**Evidence**: Text reviewed / Setting proposed / Identified take heard
 
 ---
 
@@ -230,8 +249,8 @@ When you detect a homograph (live, read, lead, wind, tear, bass, bow, etc.):
 
 ### Track 02: [title]
 - **Category**: Rhyme
-- **Issue**: Self-rhyme "street/street"
-- **Fix**: Change L4 ending to different word
+- **Issue**: The repeated ending adds padding without developing the chosen phrase
+- **Proposal**: Compare a targeted revision with the retained version; do not change an intentional refrain merely to produce a new rhyme
 
 ---
 
@@ -242,10 +261,11 @@ When you detect a homograph (live, read, lead, wind, tear, bass, bow, etc.):
 
 ---
 
-## Ready for Suno?
+## Review Disposition
 
-**YES** - All critical issues resolved
-**NO** - Critical issues remain
+**Ready for checkpoint** - Current inputs reviewed, critical issues resolved; performance may still be untested
+**Needs fixes** - Critical issues or missing evidence remain
+This report does not itself authorize generation, retries or purchases.
 ```
 
 ---
@@ -262,13 +282,13 @@ When you detect a homograph (live, read, lead, wind, tear, bass, bow, etc.):
 
 ## Quality Bar
 
-Before marking "Ready for Suno":
+Before marking "Ready for checkpoint":
 
 - [ ] Zero critical issues
-- [ ] All pronunciation notes applied to Lyrics Box
-- [ ] No unresolved homographs
-- [ ] Word count within genre target range
-- [ ] For documentary: No internal state claims, no fabricated quotes
+- [ ] Applicable vocal pronunciation decisions applied; vocal-only checks marked N/A for instrumentals
+- [ ] Chosen phrase allocation addresses density risks, and configured caps are respected
+- [ ] Fact, quotation, inference and fiction are distinguishable; no fabricated evidence
+- [ ] Report identifies the exact inputs and evidence reviewed, including changed returns
 - [ ] Warnings documented (can proceed with caution)
 
 **If any critical issue remains**: NOT ready for generation

@@ -240,8 +240,9 @@ What to have ready before using each skill:
             -> /lyric-reviewer
         INSTRUMENTAL TRACK (instrumental: true in frontmatter):
             -> /suno-engineer directly (Style Box + section tags only, no lyrics)
-    -> /pre-generation-check (validates all gates — auto-skips lyrics gates for instrumental tracks)
-    -> [Generate in Suno — instrumental tracks use Instrumental: On]
+            -> /lyric-reviewer (Instrumental Arrangement Review)
+    -> /pre-generation-check (current inputs, applicable raw checks, source approval and execution authorization)
+    -> [Execute only within an authorized budget — instrumental tracks use Instrumental: On]
     -> /mix-engineer (optional: polish raw audio)
     -> /mastering-engineer (master audio)
     -> /album-art-director (world-themed artwork)
@@ -251,8 +252,12 @@ What to have ready before using each skill:
 
 **Note**: Any album type can have instrumental tracks — OST is just the most common case.
 Mark a track as instrumental by setting `instrumental: true` in track frontmatter.
-Instrumental tracks skip: lyric-writer, pronunciation-specialist, lyric-reviewer.
-Pre-generation-check auto-skips Gates 2 (Lyrics), 3 (Pronunciation), 4 (Explicit) for instrumentals.
+Instrumentals skip vocal writing/pronunciation, but receive the lyric-reviewer's
+Instrumental Arrangement Review. The checkpoint keeps raw tool results intact:
+structural Lyrics Box content and deliberate Explicit metadata still apply.
+Only vocal stress, pronunciation and sung-breath judgments are N/A. All engineer
+handoffs prepare prompts by default; first takes and retries require the current
+checkpoint and a remaining authorized attempt/credit budget.
 
 ### Resume Existing Work
 ```

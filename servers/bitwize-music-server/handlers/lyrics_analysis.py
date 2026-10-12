@@ -296,7 +296,7 @@ _NEGATIVE_CONTRACTIONS = {
 # Do not apply the regular past-tense reduction to lexical/adjectival endings.
 # Ambiguous words retain the previous estimate rather than guessing their POS.
 _LEXICAL_ED_ENDINGS = frozenset({
-    "aged", "beloved", "blessed", "crooked", "dogged", "hatred", "hundred",
+    "aged", "beloved", "blessed", "crooked", "dialed", "dogged", "hatred", "hundred",
     "infrared", "jagged", "kindred", "learned",
     "naked", "ragged", "rugged", "sacred", "wicked", "wretched",
 })
@@ -342,9 +342,12 @@ def _count_syllables_word(word: str) -> int:
     if len(word) >= 3 and word.endswith("le") and word[-3] not in vowels:
         count += 1
 
+    # The vowel in consonant + le survives inflection (bottle -> bottled).
+    # Vowel + led, doubled-l and r+l stems (failed/called/curled) reduce normally.
+    syllabic_l = len(word) > 4 and word.endswith("led") and word[-4] not in vowels | {"l", "r"}
     if (len(word) > 3 and word.endswith("ed")
             and word[-3] not in vowels | {"t", "d"}
-            and word not in _LEXICAL_ED_ENDINGS):
+            and word not in _LEXICAL_ED_ENDINGS and not syllabic_l):
         count -= 1
 
     return max(count, 1)
@@ -523,7 +526,8 @@ async def count_syllables(text: str) -> str:
 async def analyze_readability(text: str) -> str:
     """Analyze readability of lyrics text using Flesch Reading Ease.
 
-    Reuses _count_syllables_word. Pure math — no NLP dependencies.
+    Reuses _count_syllables_word and treats lines as sentence-length proxies.
+    This estimates reading difficulty, not grammar, lyric craft or musical fit.
 
     Args:
         text: Lyrics text to analyze (with or without [Section] tags)
@@ -567,7 +571,7 @@ async def analyze_readability(text: str) -> str:
         stripped = line.strip()
         if not stripped or _SECTION_TAG_RE.match(stripped):
             continue
-        words = _WORD_TOKEN_RE.findall(stripped)
+        words = _WORD_TOKEN_RE.findall(stripped.replace("\u2019", "'"))
         if words:
             all_words.extend(words)
             words_per_line.append(len(words))
@@ -617,19 +621,15 @@ async def analyze_readability(text: str) -> str:
     # Grade level assessment
     if flesch >= 90:
         grade_level = "Very Easy"
-        assessment = "Very easy to read — conversational, accessible lyrics"
     elif flesch >= 80:
         grade_level = "Easy"
-        assessment = "Easy to read — clear, natural language"
     elif flesch >= 70:
         grade_level = "Standard"
-        assessment = "Standard readability — well-crafted lyrics"
     elif flesch >= 60:
         grade_level = "Moderate"
-        assessment = "Moderately complex — dense or literary vocabulary"
     else:
         grade_level = "Complex"
-        assessment = "Complex vocabulary — may challenge listeners on first hearing"
+    assessment = f"Estimated {grade_level.lower()} reading difficulty; musical quality not assessed"
 
     return _safe_json({
         "word_stats": {

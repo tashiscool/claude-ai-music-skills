@@ -1642,6 +1642,25 @@ class TestCountSyllables:
         result = json.loads(_run(server.count_syllables(line)))
         assert result["sections"][0]["lines"][0]["syllable_count"] == expected
 
+    @pytest.mark.parametrize(
+        ("word", "expected"),
+        [
+            ("bottled", 2), ("called", 1),
+            ("handled", 2), ("failed", 1),
+            ("settled", 2), ("filled", 1),
+            ("tangled", 2), ("sailed", 1),
+            ("assembled", 3), ("scaled", 1),
+            ("puzzled", 2), ("ruled", 1),
+            ("troubled", 2), ("spelled", 1),
+            ("whistled", 2), ("fooled", 1),
+            ("dialed", 2), ("toweled", 2),
+            ("curled", 1), ("hurled", 1), ("whirled", 1),
+        ],
+    )
+    def test_syllabic_l_survives_past_tense(self, word, expected):
+        result = json.loads(_run(server.count_syllables(word)))
+        assert result["sections"][0]["lines"][0]["syllable_count"] == expected
+
     @pytest.mark.parametrize("text", ["", "[Verse]\nThey sing\nWe sing", "[Verse]\nGo\nA long line goes on and on"])
     def test_count_statistic_never_claims_prosody_assessment(self, text):
         result = json.loads(_run(server.count_syllables(text)))
@@ -1730,6 +1749,17 @@ class TestCountSyllables:
 
 class TestAnalyzeReadability:
     """Tests for the analyze_readability MCP tool."""
+
+    @pytest.mark.parametrize("text", ["go", "go river", "go river river", "go go go river river", "river"])
+    def test_readability_does_not_certify_lyric_quality(self, text):
+        result = json.loads(_run(server.analyze_readability(text)))
+        assert "musical quality not assessed" in result["readability"]["assessment"]
+        assert "crafted" not in result["readability"]["assessment"]
+
+    def test_curly_apostrophe_preserves_contraction_statistics(self):
+        plain = json.loads(_run(server.analyze_readability("They aren't ready.")))
+        curly = json.loads(_run(server.analyze_readability("They aren\u2019t ready.")))
+        assert curly == plain
 
     def test_empty_input(self):
         result = json.loads(_run(server.analyze_readability("")))

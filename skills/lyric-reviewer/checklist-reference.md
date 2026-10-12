@@ -13,13 +13,14 @@ Detailed criteria for each lyric review checkpoint.
 - Overused patterns (heart/apart, fire/desire, night/light, moon/June)
 
 **Severity:**
-- **Warning**: Self-rhyme, repeated end word
+- **Warning**: Repeated endings used as padding without a musical or dramatic purpose; an intentional refrain is not a defect
 - **Info**: Predictable/lazy rhyme
 
 **Output format:**
 ```
 ### Rhyme Check
-- [✗] V1:L2-L4: Self-rhyme "street/street"
+- [⚠] V1:L2-L4: The repeated ending adds padding; compare a revision with the retained version
+- [✓] Chorus: The repeated address is the deliberate hook; preserve it
 - [⚠] V2:L1-L3: Predictable "fire/desire"
 - [✓] Chorus: No issues
 ```
@@ -90,7 +91,7 @@ Detailed criteria for each lyric review checkpoint.
 
 | Word | Must clarify | Options |
 |------|-------------|---------|
-| live | Always | lyve (alive) or liv (performance) |
+| live | Always | liv (reside) or lyve (live performance) |
 | read | If past tense | red |
 | lead | If metal | led |
 | wind | If coil/turn | wined |
@@ -135,7 +136,7 @@ Detailed criteria for each lyric review checkpoint.
 - Section tags present ([Verse], [Chorus], [Bridge], etc.)
 - Verse/chorus contrast (different energy, specificity)
 - V2 development (not twin of V1)
-- Title/hook placement (first or last line of chorus)
+- Effectiveness of the chosen hook/title placement, without mandatory opening or ending positions
 
 **V2 Twin Test:**
 - Does V2 say the same thing as V1 with different words?
@@ -152,7 +153,7 @@ Detailed criteria for each lyric review checkpoint.
 ### Structure Check
 - [✓] Section tags: All present
 - [✗] V2 is twin of V1 - both describe "the problem" without development
-- [⚠] Hook buried mid-chorus, not first/last line
+- [⚠] Hook is hard to identify in this setting; compare placement or melodic emphasis without prescribing a fixed line
 ```
 
 ---
@@ -164,7 +165,7 @@ Detailed criteria for each lyric review checkpoint.
 - Inverted word order ("The truth to him was known")
 - Awkward phrasing that no one would say
 - Filler words/syllables
-- Line length consistency between matching sections
+- Fit of changed words to any reused musical phrase, including intentional unequal counts
 
 **Conversational Test:**
 - Would someone actually say this?
@@ -186,29 +187,28 @@ Detailed criteria for each lyric review checkpoint.
 
 ## 7. Documentary Check (Conditional)
 
-**When to apply**: Only if RESEARCH.md exists in album directory
+**When to apply**: Whenever the song makes external factual claims; a missing research file does not exempt them
 
 **What to scan:**
-- Internal state claims ("she felt afraid", "he believed")
-- Fabricated quotes (dialogue not from sources)
-- Speculative actions ("she finally made the call")
-- Negative factual claims ("nobody heard", "no one knew")
-- Unsourced facts
+- Classify factual narration, sourced quotation, attributed inference and disclosed fiction per the writer's documentary standards
+- Flag invented speech, interiority or acts presented as a real person's documented history
+- Review breadth and attribution of external factual claims, including negatives
+- Permit clearly disclosed fictional dialogue without treating it as historical evidence
 
-**Reference**: Check lyrics against RESEARCH.md
+**Reference**: Check lyrics against RESEARCH.md, Source/Lyrical Approach notes and the actual supporting record
 
 **Severity:**
-- **Critical**: Fabricated quote (legal risk)
-- **Critical**: Internal state claim without testimony source
-- **Warning**: Speculative action not in sources
+- **Critical**: Fabricated evidence or a real person's invented speech presented as sourced
+- **Critical**: Unsupported real-person private conduct or interiority presented as established fact
+- **Warning**: Fiction/inference boundary could mislead the listener
 - **Info**: Could attribute more clearly
 
 **Output format:**
 ```
 ### Documentary Check
-- [✗] CRITICAL: V2:L3 "she was afraid" - internal state, no testimony source
-- [✗] CRITICAL: Bridge:L1 "'Help me,' she said" - fabricated quote
-- [⚠] V1:L4: "waiting by the phone" - speculative action
+- [✗] CRITICAL: V2:L3 attributes an invented confession to a real subject
+- [✓] Bridge: The labeled fictional singer's dialogue is not represented as testimony
+- [⚠] V1:L4: Clarify where the documentary account ends and the invented scene begins
 - [✓] Dates and facts match RESEARCH.md
 ```
 
@@ -216,7 +216,7 @@ Detailed criteria for each lyric review checkpoint.
 
 ## 8. Factual Check (Conditional)
 
-**When to apply**: Only if RESEARCH.md exists in album directory
+**When to apply**: Whenever the song makes external factual claims
 
 **What to scan:**
 - Names spelled correctly
@@ -262,17 +262,17 @@ Detailed criteria for each lyric review checkpoint.
 | Ballad (any genre) | 200–300 | 2–3 |
 
 **Severity:**
-- **Critical**: Over 500 words (non-hip-hop) or over 700 words (hip-hop) — Suno will rush or skip content
-- **Warning**: Over genre target range
-- **Warning**: More than 3 verses without explicit user request
+- **Blocking**: An applicable configured input cap is exceeded
+- **Warning**: Word density or duration lacks a workable musical allocation
+- **Info**: Outside a genre's starting range; inspect the chosen setting before recommending a change
 - **Info**: At upper end of range, could trim
 
 **Output format:**
 ```
 ### Length Check
-- [✗] CRITICAL: 720 words (pop) - far over 150-250 target, Suno will skip sections
-- [✗] V1, V2, V3, V4 - 4 verses, user did not request extra
-- [⚠] 360 words (rock) - slightly over 200-350 target
+- [⚠] 720 words in a short pop arrangement: no phrase allocation yet supports this density
+- [✓] Additional verse has a deliberate musical span and advances the story
+- [ℹ] 360 words exceeds the starting range; test the selected duration and delivery
 - [✓] 280 words (folk) - within 200-350 range
 ```
 
@@ -285,12 +285,12 @@ Detailed criteria for each lyric review checkpoint.
 - Compare against genre limits from lyric-writer Section Length Limits table
 
 **Severity:**
-- **Hard fail**: Any section exceeding its genre max must be flagged for trimming
+- **Warning**: A section outside the starting range needs a documented setting or audition, not an automatic trim
 
 **Output format:**
 ```
 ### Section Length Check
-- [✗] V2: 10 lines (rock max = 8) - trim 2 lines
+- [⚠] V2: 10 lines but only the earlier short phrase allocation is specified; test more space or propose a targeted edit
 - [✓] Chorus: 4 lines (within limit)
 ```
 
@@ -300,17 +300,16 @@ Detailed criteria for each lyric review checkpoint.
 
 **What to scan:**
 - Verify rhyme scheme matches the genre (see lyric-writer Default Rhyme Schemes by Genre)
-- No orphan lines (unrhymed lines in a rhyming section)
-- No random scheme switches mid-verse
+- Assess whether unrhymed lines and scheme changes have a deliberate function
 
 **Severity:**
-- **Warning**: Inconsistent scheme within a section, orphan unrhymed line
+- **Warning**: An unintended break in the chosen sound pattern weakens the phrase
 
 **Output format:**
 ```
 ### Rhyme Scheme Check
-- [✗] V1: ABAB expected (rock) but L3 doesn't rhyme with L1
-- [⚠] Bridge: Orphan line L2 has no rhyme partner
+- [⚠] V1: An unexplained sound-pattern change disrupts the intended melodic return
+- [✓] Bridge: An unrhymed line deliberately withholds closure
 - [✓] Chorus: AABB scheme consistent
 ```
 
@@ -323,13 +322,13 @@ Detailed criteria for each lyric review checkpoint.
 - Cross-reference BPM/mood from Musical Direction
 
 **Severity:**
-- **Hard fail**: Any verse exceeding the genre's max line count
+- **Warning**: The words exceed the chosen phrase space or delivery; line count alone does not establish failure
 
 **Output format:**
 ```
 ### Density/Pacing Check
-- [✗] V2: 12 lines at 140 BPM - too dense, Suno will rush
-- [✓] V1: 6 lines at 140 BPM - appropriate density
+- [⚠] V2: The same short melody is reused for a much denser return; test it or give the return a distinct setting
+- [✓] V1: The documented phrasing leaves adequate releases; performed delivery remains to be tested
 ```
 
 ---

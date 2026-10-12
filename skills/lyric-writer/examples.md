@@ -77,7 +77,7 @@ My DES-ti-ny is CALL-ing me
 ```
 I walked IN-to THE room
 ```
-Prepositions and articles shouldn't land on strong beats.
+Avoid accidental emphasis on light words. A preposition or article can take an accent when the meaning deliberately calls for it; test the phrase rather than banning the word class.
 
 **Fixed:**
 ```
@@ -149,65 +149,50 @@ The debt behind the golden throne
 
 ---
 
-## Verse-Chorus Echo
+## Verse-Chorus Development
 
-The verse should set up the chorus, not preview it.
+A shared word or image is not enough evidence to reject a transition. Ask what
+the recurrence does in the whole song and its musical setting.
 
-### Example 1: Shared Hook Word
+### Example 1: Hook Pickup or Redundant Explanation?
 
-**Bad:**
 ```
-[Verse]
-We started something that will never end
-This is where it all got its START
+[Verse ending]
+This is where it all got its start.
 
-[Chorus]
-Where it all got its START
-Where we found our heart
-```
-"Start" appears in both — chorus loses impact.
-
-**Fixed:**
-```
-[Verse]
-We started something that will never end
-This is where we lit the spark
-
-[Chorus]
-Where it all got its start
-Where we found our heart
+[Chorus entrance]
+Where it all got its start.
 ```
 
-**Why it works**: "Spark" sets up "start" without stealing it. The chorus still lands fresh.
+The identical phrase could be an effective pickup, call-and-response or sudden
+change of scale. Without a setting, it is not automatically bad. If both
+sections merely deliver the same explanation at the same intensity, develop
+an action in the verse instead of substituting a synonym to avoid the overlap:
 
----
-
-### Example 2: Shared Imagery
-
-**Bad:**
 ```
-[Verse]
-Standing in the warehouse, dust in the air
-Machines gone quiet, no one left to care
-
-[Chorus]
-This warehouse holds our memories
-These walls remember everything
-```
-"Warehouse" and "walls" appear in both.
-
-**Fixed:**
-```
-[Verse]
-Footsteps echo where the machines once ran
-Dust on every surface, silence where we began
-
-[Chorus]
-This warehouse holds our memories
-These walls remember everything
+You pushed the first chair through the door.
 ```
 
-**Why it works**: Verse describes the space without naming it; chorus reveals the location.
+**What to test:** Does the chorus now do something the verse has prepared, and
+would keeping the original pickup be more memorable? Neither option wins on
+word matching alone.
+
+### Example 2: An Image Returns Changed
+
+```
+[Early scene]
+I set two cups beside the stove.
+You reach across to take the blue.
+
+[Later scene]
+I set two cups beside the stove.
+Then put the blue one back again.
+```
+
+The repeated cups and opening sentence carry the change in the relationship.
+Replacing them with unrelated imagery would remove the comparison. A returning
+chorus can acquire the same kind of force after a changed action. These invented
+lines illustrate development, not a claim that a complete melody has been tested.
 
 ---
 
@@ -353,18 +338,15 @@ Someone finally saw the light
 
 ### Example 1: Self-Rhyme
 
-**Bad:**
 ```
 I gave you all my love
 You threw away my love
 ```
-"Love" rhymes with itself.
 
-**Fixed:**
-```
-I gave you all my heart
-You tore that love apart
-```
+The repeated ending may be an accusation, a musical answer or merely padding.
+Assess that function in the whole song. Substituting heart/apart only to obtain
+different rhyming words could lose the deliberate insistence; it is not an
+automatic repair. A performance or a concrete setting helps decide.
 
 ---
 
@@ -395,7 +377,7 @@ Match lyric density to tempo and mood.
 
 **Musical Direction says**: "Slow groove, 75 BPM, laid-back feel"
 
-**Bad (too dense for tempo):**
+**Draft with a density question, not a proven failure:**
 ```
 [Verse]
 Running through the city streets at night, sirens blaring
@@ -405,15 +387,12 @@ Gotta make it to the bridge before they catch me there
 Breathless at the river, looking back at what I'm leaving
 Everything I knew is burning, there's no turning back
 ```
-Six packed lines at 75 BPM — Suno will rush or compress.
+Six lines and a tempo do not specify their available musical space. First
+choose phrase lengths and a delivery, then check stress, articulation, rests
+and the transition. A two-bar-per-line proposal has twice the space of a
+one-bar-per-line proposal at this tempo; neither has been performed here.
 
-**Fixed (matches tempo):**
-```
-[Verse]
-Slow night in the city
-Streetlights on the rain
-Nothing but the echo
-Of an empty train
-```
-
-**Why it works**: Four short lines give the slow tempo room to breathe.
+If the pursuit story matters, preserve it while comparing those settings.
+Replacing it with an empty-train scene would change the song rather than fix
+its meter. Revise only the language or allocation that the comparison exposes
+as weak, keeping protected text and the original version available.

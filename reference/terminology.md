@@ -106,11 +106,11 @@ Comprehensive reference for terms used in the bitwize-music plugin. Alphabetized
 | Term | Definition | Example |
 |------|------------|---------|
 | **Homograph** | Word with multiple pronunciations that Suno may mispronounce. Requires clarification or phonetic spelling. | "live" (LYVE vs LIV), "lead", "wind", "bass" |
-| **Lazy Rhyme** | Predictable, overused, or weak rhyme pattern. Includes self-rhymes and same-word repeats. | Rhyming "time" with "time" |
+| **Lazy Rhyme** | A forced or unearned sound pattern used as padding. A repeated word may instead be a deliberate refrain. | Repeating an ending only to fill a line |
 | **Phonetic Spelling** | Writing words as they should be pronounced to prevent Suno mispronunciation. | "Lin-ucks" for Linux, "Rah-mohs" for Ramos |
 | **POV** | Point of view. Should be consistent throughout a track (first person, third person, etc.). | Don't switch from "I" to "you" mid-verse |
 | **Prosody** | Fit between language, musical setting and emotional purpose. Natural stress interacts with timing, duration, pitch and delivery. | A meaningful word sustained across a beat; an image returning with new force |
-| **Self-Rhyme** | Rhyming a word with itself or using the same end word twice consecutively. A common pitfall. | "mind/mind", "time/time" |
+| **Self-Rhyme** | Repeating the same word as an ending; distinguish a weak attempted rhyme from a purposeful refrain or vow. | A repeated "stay" may be the hook rather than a failed rhyme |
 | **Twin Verses** | When Verse 2 merely rewords Verse 1 without developing the story/theme. A quality issue. | V2 should advance the narrative, not repeat V1 |
 
 ---

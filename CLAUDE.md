@@ -136,6 +136,8 @@ At the beginning of a fresh session:
 
 **Musical review is not a counter result.** Follow `/skills/lyric-writer/prosody-review.md`: review dramatic purpose and every section's musical setting, retain earned motifs, and separate proposed scansion/composition from an identified performed take. Automated gate READY means text/metadata checks passed, not musical approval. A Pending source gate does not prevent provisional craft review or become cleared by it.
 
+**Prompt preparation is not execution permission.** Automatic handoff to suno-engineer is prompt-only. Before a first take or retry, apply its Execution Boundary and the current pre-generation checkpoint, including source approval, reviewed input identity and the user's remaining attempt/credit budget. Instrumentals receive an arrangement review, not an impossible vocal-report prerequisite.
+
 **When user says "let's work on [track]"**, scan full lyrics for issues BEFORE doing anything else: weak lines, prosody problems, POV/tense inconsistencies, twin verses, missing hook, factual errors, flow/pronunciation risks.
 
 ---

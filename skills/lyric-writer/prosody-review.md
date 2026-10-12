@@ -2,6 +2,8 @@
 
 Use this alongside the writer and reviewer checklists. The MCP text tools supply
 evidence for those reviews; they do not perform the musical judgment themselves.
+Use [review-scenarios.md](review-scenarios.md) to exercise the cross-skill routes
+after changing this method. These scenarios do not replace a musical audition.
 
 ## Start With the Dramatic Reason
 
@@ -74,6 +76,13 @@ testable choice, not praise every line indiscriminately.
 ## Report What Was Actually Done
 
 Use a concise section ledger in the review, not a new track-status system:
+
+Identify the final reviewed input versions/hashes after any auto-applied
+pronunciation edits: lyrics/structure, style, exclusions, generation settings,
+phrase allocation/score and reference audio (including explicit absence).
+When an input changes, re-review the affected passages and transitions rather
+than carrying a stale report forward. Keep text review, proposed composition,
+identified performance and human permissions separate.
 
 | Section/version | Dramatic function | Stress/phrase issue | Setting or change tested | Evidence and open decision |
 | --- | --- | --- | --- | --- |
