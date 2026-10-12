@@ -126,7 +126,7 @@ Quick-reference guide for finding the right skill for any task.
 | [`import-audio`](/skills/import-audio/SKILL.md) | Move audio files to correct album location | Importing WAV files from Suno downloads |
 | [`import-track`](/skills/import-track/SKILL.md) | Move track .md files to correct album location | Importing track files from external sources |
 | [`lyric-refiner`](/skills/lyric-refiner/SKILL.md) | Multi-pass lyric refinement for tightening, cohesion, and album unity | Polishing lyrics after writing, before QC |
-| [`lyric-reviewer`](/skills/lyric-reviewer/SKILL.md) | QC gate before Suno generation (14-point checklist) | Final quality check before generating |
+| [`lyric-reviewer`](/skills/lyric-reviewer/SKILL.md) | Vocal QC (14-point checklist), instrumental arrangement and identified-take review | Before generation and after a take or correction |
 | [`lyric-writer`](/skills/lyric-writer/SKILL.md) | Write or review lyrics with prosody and rhyme craft | Writing new lyrics or fixing existing ones |
 | [`mastering-engineer`](/skills/mastering-engineer/SKILL.md) | Audio mastering guidance, loudness optimization | Mastering tracks to -14 LUFS for streaming |
 | [`mix-engineer`](/skills/mix-engineer/SKILL.md) | Per-stem audio polish (noise, EQ, compression, remix) | Polishing raw Suno output before mastering |
@@ -175,7 +175,7 @@ What to have ready before using each skill:
 | `/lyric-writer` | Track concept defined, sources captured (if documentary) |
 | `/pronunciation-specialist` | Lyrics written |
 | `/lyric-refiner` | Lyrics written (runs after lyric-writer, before QC) |
-| `/lyric-reviewer` | Lyrics complete, pronunciation checked |
+| `/lyric-reviewer` | Vocal: draft and pronunciation decisions; instrumental: structure/style; post-take: identified audio |
 | `/voice-checker` | Lyrics written, lyric-reviewer passed |
 | `/pre-generation-check` | Lyrics written, pronunciation resolved, style prompt created (instrumental: only Style Box needed) |
 | `/suno-engineer` | Lyrics written (auto-invoked by lyric-writer). For instrumental tracks: invoked directly as entry point |

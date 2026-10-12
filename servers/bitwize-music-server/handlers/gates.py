@@ -319,7 +319,9 @@ def _check_pre_gen_gates_for_track(
     elif lyrics_content and lyrics_content.strip():
         struct_tags = [line.strip() for line in lyrics_content.split("\n")
                        if _SECTION_TAG_RE.match(line.strip())]
-        cue_bearing = [t for t in struct_tags if re.search(r"\[[^\]]* - [^\]]*\]", t)]
+        cue_bearing = [t for t in struct_tags if re.search(
+            r"\[[^\]]+(?:\s+[-\u2013\u2014]\s*|[:|]\s*)[^\]\s][^\]]*\]", t
+        )]
         if len(struct_tags) >= 2 and not cue_bearing:
             gates.append({"gate": "Performance Cues", "status": "WARN", "severity": "WARNING",
                           "detail": f"{len(struct_tags)} structure tags carry no Performance Cues "

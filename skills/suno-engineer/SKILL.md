@@ -4,8 +4,7 @@ description: Constructs technical Suno style prompts for the current model famil
 argument-hint: <track-file-path or "create prompt for [concept]">
 model: opus
 effort: max
-prerequisites:
-  - lyric-writer
+prerequisites: []
 allowed-tools:
   - Read
   - Edit
@@ -351,7 +350,7 @@ As the Suno engineer, you:
 10. **Build style prompt** - Assemble final prompt (vocals FIRST), populate Exclude Styles if needed, then review the descriptor mix — collapse synonym-piles so every term adds distinct info (a focused ~10 is fine; trim only real bloat; see § Style Prompt above)
 11. **Stop at the Execution Boundary** - Prompt preparation is complete, not generation authorization. Follow the checkpoint below for first takes and every retry.
 12. **Execute only an approved request** - Use the reviewed inputs within the user's remaining attempt/credit budget; stop if the model, price, reference audio or scope changes beyond that authorization.
-13. **Review and log results** - Compare the actual take with the brief. Record the take/version, what was heard, and whether another attempt is authorized. A recommendation to iterate does not itself permit a retry.
+13. **Review and log results** - Apply [After Generation](../lyric-writer/prosody-review.md#after-generation) through lyric-reviewer to the identified take, every section and changed return. Recheck corrections, preserve original takes, and separate actual listening from proposed settings and human approval. A recommendation to iterate does not itself permit a retry.
 
 ## Execution Boundary
 

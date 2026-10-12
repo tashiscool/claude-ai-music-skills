@@ -220,6 +220,14 @@ Album target duration set during Phase 3 (Sonic Direction). Tracks inherit unles
 
 ### Regeneration Workflow
 
+For new takes and review/approval branches, apply the lyric-reviewer's
+[After Generation review](skills/lyric-writer/prosody-review.md#after-generation).
+Check the identified audio section by section, record failures and recheck
+corrections. Keep human keeper decisions separate from unperformed technical
+checks; do not replace the user's preferred recording or revoke its approval.
+Every retry below remains subject to the current checkpoint and remaining
+execution authorization. No automatic retry is permitted after an uncertain charge.
+
 When a user rejects a generated track (doesn't like the result, wrong style, pronunciation issues, etc.):
 
 1. **Log the rejection**: Add a row in the Generation Log with the reason (e.g., "wrong tempo", "vocal too high", "mispronounced name")

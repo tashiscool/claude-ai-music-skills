@@ -45,7 +45,7 @@ syllables. A sung contraction may differ from an ordinary spoken estimate.
 2. Identify the section's job and its relation to the neighboring sections.
    Fewer words alone do not create a lift; a high note alone does not create a
    climax. Decide what should become more exposed, insistent, joyful or unresolved.
-3. Check natural stress and pronunciation for every line. Corresponding lines
+3. Show the verbal pattern below and check pronunciation for every line. Corresponding lines
    need not have identical syllable counts, but any reused melody must accommodate
    their differences without accidental stress changes or cramming.
 4. For the phrases under review, state pulse/tempo, meter, subdivision, pickups,
@@ -60,6 +60,26 @@ syllables. A sung contraction may differ from an ordinary spoken estimate.
    performance. A style prompt is a request, not evidence the model followed it.
 6. Check the whole transition, not an isolated line. Test changed final choruses
    separately. A technically valid grid can still sound square or unmemorable.
+
+## Show the Verbal Pattern
+
+Show a plausible spoken scansion for every distinct lyric line: mark principal
+accents and lighter syllables, then describe the recurring pattern across the
+section. Exact repeats may reference the first reading; changed returns need
+their own check. Record pronunciation alternatives that change the count.
+
+Where the language supports a poetic-foot reading, identify the foot type and
+number of feet. Otherwise describe mixed-accent, conversational or rap phrasing
+explicitly. Do not force a foot label or invent stress to defend the draft.
+For example, `the CAR / was PAID / a WEEK / a HEAD` admits four rising feet;
+`for ONCE / the FRIDGE / was FULL` admits three. Their different lengths are a
+setting question, not an automatic reason to rewrite either line.
+
+Compare corresponding lines' accent positions, substitutions, pickups and
+endings, then map them to the chosen musical phrase. A 4/4 time signature,
+swing feel or BPM label does not describe the words' meter. Explain any deliberate
+departure and test whether the reused melody still accommodates it. Keep the
+scansion, composed note placements and heard performance separately identified.
 
 ## Diagnose Before Rewriting
 
@@ -97,6 +117,36 @@ guide can be assessed for composition, not for breath or vocal pronunciation.
 Before scaling a batch, compare a whole pilot transition or song with the user's
 ear. Do not apply one newly invented rhythmic template to every genre. Source
 approval and spending/listening consent remain independent of creative review.
+
+## After Generation
+
+Apply the section ledger to the identified take, not just its prompt. Record
+the audio path or take ID, hash/version and the exact reviewed inputs. Use the
+author's preferred downloaded recording; do not substitute an export silently.
+
+1. Cover every section and transition, with timestamps for the relevant evidence.
+   Compare actual words, stress, phrase timing, releases, breath, melody, section
+   contrast and arrangement with the brief. Check changed returns separately.
+2. Distinguish an unwanted lyric change from a performance or setting problem.
+   A take can legitimately depart from a proposed grid and still work. Preserve
+   effective words and the original take; propose a separate correction when
+   needed instead of rewriting merely to fit the generated performance.
+3. After a correction or new take, recheck affected sections and neighboring
+   transitions. A new generated performance requires a whole-take listen; it
+   cannot inherit the earlier performance verdict from an unchanged prompt.
+   Reuse unchanged text/source analysis with its input identity intact.
+4. Log what was actually heard and what remains unknown. If audio cannot be
+   auditioned, say **performance untested**. A waveform, transcript or note grid
+   alone cannot establish vocal comfort, emotional effect or listening quality.
+5. Record human listening approval separately from agent technical review,
+   source clearance and release readiness. Respect a user's keeper decision;
+   do not invent completed checks or revoke approval because the agent lacks
+   evidence. Surface unresolved material issues before recommending mastering
+   or release. Retrying still needs the engineer's remaining authorization.
+
+Capture a specific lesson from a failed phrase and check for that same issue
+elsewhere in the album. Do not turn one take's failure into a universal genre
+rule. Propose persistent preference changes rather than silently adding them.
 
 ## Background
 

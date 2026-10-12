@@ -2,6 +2,14 @@
 
 This document covers edge cases and recovery procedures for common workflow issues.
 
+Treat regeneration steps as proposals until the current pre-generation checkpoint
+and the engineer's [Execution Boundary](../../skills/suno-engineer/SKILL.md#execution-boundary)
+permit them. Preserve original recordings, source decisions and human keeper
+approvals; an agent's proposed correction does not revoke those decisions.
+Use [After Generation](../../skills/lyric-writer/prosody-review.md#after-generation)
+to inspect each identified take and recheck corrections. Do not spend again when
+an earlier request's billing or outcome remains uncertain.
+
 ---
 
 ## 1. Wrong Track Marked as Final

@@ -880,6 +880,33 @@ class TestPerformanceCuesGate:
 class TestRunPreGenerationGates:
     """Tests for the run_pre_generation_gates async handler."""
 
+    @pytest.mark.parametrize("separator", [" - ", " \u2014 ", " \u2013 ", ": ", " | "])
+    def test_delivery_cues_recognized_across_supported_separators(self, separator):
+        lyrics = f"[Verse 1{separator}quiet]\nLa la\n[Chorus{separator}open]\nNa na"
+        track = _track_with("pop, piano", lyrics)
+        with patch("pathlib.Path.read_text", return_value=track), \
+             patch.object(_text_analysis_mod, "_load_artist_blocklist", return_value=[]):
+            result = json.loads(_run(
+                _gates_mod.run_pre_generation_gates("test-album", "01-first-track")
+            ))
+        cue = next(g for g in result["tracks"][0]["gates"] if g["gate"] == "Performance Cues")
+        assert cue["status"] == "PASS"
+        assert cue["detail"] == "2/2 structure tags carry cues"
+
+    @pytest.mark.parametrize("tag", [
+        "[Pre-Chorus]", "[Post-Chorus]", "[Verse 1 - ]", "[Verse 1 \u2014 ]",
+        "[Verse 1 \u2013 ]", "[Verse 1: ]", "[Verse 1 | ]",
+    ])
+    def test_empty_direction_or_section_name_hyphen_is_not_a_cue(self, tag):
+        track = _track_with("pop, piano", f"{tag}\nLa la\n[Chorus]\nNa na")
+        with patch("pathlib.Path.read_text", return_value=track), \
+             patch.object(_text_analysis_mod, "_load_artist_blocklist", return_value=[]):
+            result = json.loads(_run(
+                _gates_mod.run_pre_generation_gates("test-album", "01-first-track")
+            ))
+        cue = next(g for g in result["tracks"][0]["gates"] if g["gate"] == "Performance Cues")
+        assert cue["status"] == "WARN"
+
     def setup_method(self):
         self._orig_cache = _shared_mod.cache
         self._mock_cache = MockStateCache()

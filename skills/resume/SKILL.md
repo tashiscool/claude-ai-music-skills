@@ -42,9 +42,15 @@ When this skill is invoked with an album name:
 1. Call `get_album_progress(album_slug)` — returns track counts by status, completion percentage, and detected workflow phase
 2. Call `list_tracks(album_slug)` — returns per-track details (status, has_suno_link, sources_verified)
 
-### Step 3: Update Session Context
+### Step 3: Inspect Current Inputs
 
-Call `update_session(album=album_slug, phase=detected_phase)` to set the active album and phase.
+The native `detected_phase` is a status-only estimate, not a readiness verdict.
+Before reporting or persisting it, inspect
+`get_album_full(album_slug, include_sections="lyrics,style")` and the relevant
+track files for completeness, instrumental-field agreement and review evidence.
+Do not send a completed vocal draft or instrumental structure back to writing
+solely because its status is In Progress. If inputs cannot be read, report that
+uncertainty and leave the saved phase unchanged.
 
 ### Step 4: Determine Current Phase
 
@@ -64,6 +70,11 @@ Based on album and track statuses, identify the workflow phase:
 | Released | All "Final" | Released - Album is live |
 
 **Note**: Non-documentary albums skip `Research Complete` and `Sources Verified` — they go directly from `Concept` → `In Progress`.
+
+Resolve the table against the inspected inputs and Step 6's decision tree, then
+call `update_session(album=album_slug, phase=resolved_phase)`. Report that same
+resolved phase. Ready to Generate means ready for the checkpoint, not permission
+to execute; it does not replace musical review or source verification.
 
 ### Step 5: Report to User
 
@@ -107,6 +118,12 @@ where needed; a status does not prove that lyrics are absent or complete. Every
 generation/retry recommendation remains subject to current review, source checks
 and execution authorization under the engineer's Execution Boundary. Pending
 sources do not prevent an explicitly requested provisional craft pass.
+
+For every Generated-track branch below, first apply the shared
+[After Generation review](../lyric-writer/prosody-review.md#after-generation)
+through lyric-reviewer. Carry its section ledger and correction checks forward.
+Record actual human keeper decisions without claiming any unperformed technical
+review; missing access to audio is a disclosed limitation, not a revoked approval.
 
 ```
 Album Status = "Concept"

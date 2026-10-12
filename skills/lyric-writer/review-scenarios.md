@@ -92,6 +92,37 @@ the finished take as a prerequisite to creating it. Label it unperformed and
 judge the resulting version afterward. If the input report, authorization or
 source clearance is missing, raw MCP READY is insufficient.
 
+### M09: Unequal Counts With a Recurring Accent Pattern
+
+**Input:** One line admits four rising feet; the next admits three. Other lines
+use a mixed three-accent pattern. The brief specifies 4/4 at 72 BPM.
+
+**Expected:** Show each distinct line's verbal scansion, naming feet where
+appropriate and mixed accents otherwise. Compare the patterns with actual
+phrase allocation. Do not substitute the time signature for verbal analysis,
+pad a shorter line, or force every line into the same poetic meter.
+
+### M10: A New Take Changes the Final Chorus
+
+**Input:** The prompt and earlier text review are unchanged, but a new take
+crams the final chorus pickup and changes one sung word. The user likes the take.
+
+**Expected:** Preserve that listening approval and the recording. Identify the
+take, inspect every section, log the timestamped problems and distinguish word
+changes from timing. Propose a separate correction; recheck a new performance
+without inheriting the previous verdict. If audio cannot be heard, disclose the
+limitation instead of inventing timestamps or overruling the user's taste.
+
+### M11: Complete Inputs Still Marked In Progress
+
+**Input:** The native progress tool says Writing because a track is In Progress.
+Its actual lyrics or instrumental structure and style are complete.
+
+**Expected:** Resume inspects those inputs before updating the session. Resolve
+the appropriate review/checkpoint phase and save/report that same phase. Do not
+restart writing based solely on the coarse status estimate. If the file cannot
+be read, preserve the saved phase and disclose the missing evidence.
+
 ## Record the Outcome
 
 For each scenario, name the governing skill sections, the actual disposition,

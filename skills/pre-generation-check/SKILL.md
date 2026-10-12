@@ -4,9 +4,7 @@ description: Validates all pre-generation gates before sending tracks to Suno. C
 argument-hint: <album-name or track-path>
 model: haiku
 prerequisites:
-  - lyric-writer
   - lyric-reviewer
-  - pronunciation-specialist
 allowed-tools:
   - Read
   - Glob

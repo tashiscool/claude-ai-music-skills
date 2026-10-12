@@ -51,7 +51,7 @@ Display this help information to the user in a clear, organized format.
 - `/bitwize-music:verify-sources` - Human source verification gate (required before generation)
 
 **Quality Control**
-- `/bitwize-music:lyric-reviewer` - Pre-generation QC gate (14-point checklist)
+- `/bitwize-music:lyric-reviewer` - Vocal QC (14-point checklist), instrumental arrangement and identified-take review
 - `/bitwize-music:pronunciation-specialist` - Scan for pronunciation risks
 - `/bitwize-music:explicit-checker` - Verify explicit content flags
 - `/bitwize-music:plagiarism-checker` - Check lyrics for phrases matching existing songs

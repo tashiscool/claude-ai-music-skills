@@ -35,6 +35,18 @@ def test_instrumental_has_an_arrangement_review_route():
     assert "SKIP — Instrumental track (no lyrics to review)" not in reviewer
 
 
+def test_reviewer_discovery_covers_instrumentals_without_vocal_prerequisites(all_skill_frontmatter):
+    metadata = all_skill_frontmatter["lyric-reviewer"]
+    assert "arrangement" in metadata["description"].lower()
+    assert not {"lyric-writer", "pronunciation-specialist"}.intersection(metadata.get("prerequisites", []))
+
+
+@pytest.mark.parametrize("skill", ["suno-engineer", "pre-generation-check"])
+def test_instrumental_capable_metadata_does_not_require_vocal_work(all_skill_frontmatter, skill):
+    metadata = all_skill_frontmatter[skill]
+    assert not {"lyric-writer", "pronunciation-specialist"}.intersection(metadata.get("prerequisites", []))
+
+
 @pytest.mark.parametrize("skill", ["resume", "next-step"])
 def test_album_helpers_route_all_three_track_mixes(skill):
     text = read(f"skills/{skill}/SKILL.md")
@@ -92,7 +104,29 @@ def test_checkpoint_requires_current_inputs_not_a_stale_report():
     assert "authorization" in text
 
 
+def test_verbal_scansion_is_shown_not_inferred_from_time_signature():
+    text = read("skills/lyric-writer/prosody-review.md")
+    assert "## Show the Verbal Pattern" in text
+    for term in ("foot", "accent", "every distinct lyric line", "mixed", "4/4"):
+        assert term in text
+
+
+@pytest.mark.parametrize("path", [
+    "skills/lyric-reviewer/SKILL.md", "skills/suno-engineer/SKILL.md",
+    "skills/resume/SKILL.md", "skills/next-step/SKILL.md", "CLAUDE.md",
+])
+def test_post_take_routes_reference_the_shared_review(path):
+    assert "prosody-review.md#after-generation" in read(path)
+
+
+def test_resume_resolves_inputs_before_persisting_phase():
+    text = read("skills/resume/SKILL.md")
+    assert "phase=detected_phase" not in text
+    assert text.index('get_album_full(album_slug, include_sections="lyrics,style")') < text.index("phase=resolved_phase")
+    assert "status-only estimate" in text
+
+
 def test_scenarios_cover_the_reviewed_failure_modes():
     text = read("skills/lyric-writer/review-scenarios.md")
-    for case in ("M01", "M02", "M03", "M04", "M05", "M06", "M07", "M08"):
+    for case in ("M01", "M02", "M03", "M04", "M05", "M06", "M07", "M08", "M09", "M10", "M11"):
         assert f"### {case}:" in text

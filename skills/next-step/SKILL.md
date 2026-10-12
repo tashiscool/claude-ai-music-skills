@@ -39,7 +39,7 @@ You analyze the current state of albums and tracks and recommend the optimal nex
 
 1. Call `find_album(name)` — fuzzy match by name, slug, or partial
 2. Call `get_album_progress(album_slug)` — get status, phase, track counts
-3. Recommend next action based on detected phase
+3. Treat the detected phase as a status-only estimate; inspect actual inputs before recommending the next action
 
 ---
 
@@ -54,6 +54,12 @@ when status alone is ambiguous. A recommendation is not execution authorization:
 every first take or retry must pass the current checkpoint and the engineer's
 Execution Boundary, including the remaining user-authorized budget. Pending
 sources block generation, not an explicitly requested provisional craft review.
+
+Generated-track recommendations below use lyric-reviewer and the shared
+[After Generation review](../lyric-writer/prosody-review.md#after-generation).
+Check the identified take section by section and recheck corrections. Preserve
+human keeper decisions while reporting any missing technical or listening
+evidence; approval alone does not prove the agent performed those checks.
 
 ```
 Album Status = "Concept"
